@@ -69,9 +69,9 @@ import { FanReading } from '../sensors/models';
 export class FansCard {
   readonly fans = input.required<FanReading[]>();
 
-  /** Not the real speed (that would be a blur); just faster for more RPM. Rounded so it does not jump every update. */
+  /** Not the real speed (that would be a blur); just faster for more RPM, fastest from 3000 RPM. Rounded to 0.05 s so it does not jump every update. */
   protected spinSeconds(rpm: number): number {
     if (rpm <= 0) return 0;
-    return Math.round(Math.min(4, Math.max(0.35, 600 / rpm)) * 10) / 10;
+    return Math.round(Math.min(4, Math.max(0.35, 1050 / rpm)) * 20) / 20;
   }
 }
