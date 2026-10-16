@@ -10,6 +10,7 @@ import { FanReading } from '../sensors/models';
     <header class="card-head">
       <span class="kind">Cooling</span>
       <h2 class="name">Fans</h2>
+      <ng-content />
     </header>
 
     <ul>

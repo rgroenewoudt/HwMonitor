@@ -66,6 +66,8 @@ h1, h2, h3 { margin: 0; }
   gap: 2px;
   width: 100%;
   min-width: 0;
+  /* Room for the hide button in the top-right corner. */
+  padding-right: 36px;
 
   .kind {
     font-size: 0.72rem;
@@ -81,6 +83,12 @@ h1, h2, h3 { margin: 0; }
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  /* Phones: smaller names, so more cards fit without scrolling. */
+  @media (max-width: 600px), (max-height: 500px) {
+    .kind { font-size: 0.65rem; }
+    .name { font-size: 0.9rem; }
   }
 }
 

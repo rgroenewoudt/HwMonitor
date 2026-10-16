@@ -16,6 +16,7 @@ interface Group {
     <header class="card-head">
       <span class="kind">System</span>
       <h2 class="name">Temperatures</h2>
+      <ng-content />
     </header>
 
     @for (group of groups(); track group.name) {

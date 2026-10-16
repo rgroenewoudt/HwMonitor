@@ -41,6 +41,7 @@ npm run icons                             # re-render PNG icons from public/icon
 - AMD ADLX (`AdlxGpuReader`, used inside `LhmSensorSource`): when it starts and finds a GPU, LHM's `GpuAmd` items are skipped and the AMD GPUs, their fans and `Fps` come from ADLX (Ids `/adlx/gpu/{UniqueId}`). When it fails (no AMD driver, `Sensors:UseAdlx=false`) it logs once and LHM is used. It calls the public SWIG bindings (`ADLXWrapper.Bindings`) directly, because the wrapper classes have no usage, VRAM or FPS.
 - Memory is in GB: system RAM = `Memory Used` + `Memory Available` from the "Total Memory" item (not "Virtual Memory"), shown on the CPU card. GPU VRAM = `GPU Memory Used` + `GPU Memory Free` (MB), fallback `D3D Dedicated Memory Used/Free`.
 - The SignalR client uses WebSockets with `skipNegotiation` and retries forever; it also restarts on `visibilitychange` (phones waking up) when it is disconnected, reconnecting, or got no message for 5 s (a dead socket can still look connected).
+- Cards can be hidden: `CardVisibilityService` keeps hidden keys (`cpu`, `gpu:<id>`, `system`, `fans`) in localStorage. `app.html` projects an `app-hide-button` into each card's header (`<ng-content />`); hidden cards show as "show again" chips above the grid.
 - Temperature color levels (`cool/warm/hot/none`) come from `temperature.ts` and are set as `data-level` attributes; global `styles.scss` maps them to `--level-color`. Shared `.card` / `.card-head` styles are global, component styles are inline in each component.
 
 ## Build / hosting details that are easy to break

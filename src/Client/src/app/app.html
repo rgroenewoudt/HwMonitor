@@ -31,16 +31,43 @@
   <p class="warning" role="alert" data-testid="warning">{{ message }}</p>
 }
 
+@if (hiddenCards().length) {
+  <nav class="hidden-cards" aria-label="Hidden cards" data-testid="hidden-cards">
+    <span class="hidden-label">Hidden</span>
+    @for (card of hiddenCards(); track card.key) {
+      <button type="button" class="chip" (click)="visibility.show(card.key)" [title]="'Show ' + card.label">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>{{ card.label }}
+      </button>
+    }
+  </nav>
+}
+
 <main class="grid">
   @if (snapshot(); as s) {
     @if (s.cpu; as cpu) {
-      <app-device-card kind="CPU" [device]="cpu" [memory]="s.memory" data-testid="cpu-card" />
+      @if (!visibility.isHidden('cpu')) {
+        <app-device-card kind="CPU" [device]="cpu" [memory]="s.memory" data-testid="cpu-card">
+          <app-hide-button key="cpu" [label]="cpu.name" />
+        </app-device-card>
+      }
     }
     @for (gpu of s.gpus; track gpu.id) {
-      <app-device-card kind="GPU" [device]="gpu" [memory]="gpu.memory" data-testid="gpu-card" />
+      @if (!visibility.isHidden('gpu:' + gpu.id)) {
+        <app-device-card kind="GPU" [device]="gpu" [memory]="gpu.memory" data-testid="gpu-card">
+          <app-hide-button [key]="'gpu:' + gpu.id" [label]="gpu.name" />
+        </app-device-card>
+      }
     }
-    <app-system-temps [temps]="s.systemTemps" data-testid="system-card" />
-    <app-fans-card [fans]="s.fans" data-testid="fans-card" />
+    @if (!visibility.isHidden('system')) {
+      <app-system-temps [temps]="s.systemTemps" data-testid="system-card">
+        <app-hide-button key="system" label="System temperatures" />
+      </app-system-temps>
+    }
+    @if (!visibility.isHidden('fans')) {
+      <app-fans-card [fans]="s.fans" data-testid="fans-card">
+        <app-hide-button key="fans" label="Fans" />
+      </app-fans-card>
+    }
   } @else {
     @for (i of [1, 2, 3, 4]; track i) {
       <div class="card skeleton" aria-hidden="true"></div>

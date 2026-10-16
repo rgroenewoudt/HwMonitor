@@ -13,6 +13,7 @@ import { Gauge } from './gauge';
     <header class="card-head">
       <span class="kind">{{ kind() }}</span>
       <h2 class="name" [title]="device().name">{{ device().name }}</h2>
+      <ng-content />
     </header>
 
     <app-gauge [value]="device().tempC" [label]="kind() + ' temperature'" />
@@ -44,7 +45,12 @@ import { Gauge } from './gauge';
   `,
   styles: `
     :host { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    app-gauge { --gauge-size: clamp(150px, 46vw, 188px); margin-block: 4px; }
+    app-gauge { --gauge-size: 150px; margin-block: 4px; }
+    /* Phones: smaller gauge, so more cards fit without scrolling. */
+    @media (max-width: 600px), (max-height: 500px) {
+      :host { gap: 8px; }
+      app-gauge { --gauge-size: 120px; margin-block: 0; }
+    }
     .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));

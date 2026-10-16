@@ -78,6 +78,43 @@ h1 { margin: 0; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
   font-size: 0.9rem;
 }
 
+.hidden-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.hidden-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0 14px 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover, &:focus-visible { background: var(--surface-2); border-color: var(--accent); }
+
+  svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
