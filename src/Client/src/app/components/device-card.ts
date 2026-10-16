@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { DeviceReading } from '../sensors/models';
+import { DeviceReading, MemoryReading } from '../sensors/models';
 import { tempLevel } from '../sensors/temperature';
 import { Gauge } from './gauge';
 
-/** Card for a CPU or GPU: big temperature gauge plus load, power and hot spot. */
+/** Card for a CPU or GPU: big temperature gauge plus load, power, hot spot and memory (system RAM for the CPU, VRAM for the GPU). */
 @Component({
   selector: 'app-device-card',
   imports: [Gauge],
@@ -33,6 +33,13 @@ import { Gauge } from './gauge';
           <dd>{{ format(device().hotSpotC, 0) }}<small>°C</small></dd>
         </div>
       }
+      @if (memory(); as mem) {
+        <div class="memory" data-testid="memory">
+          <dt>{{ kind() === 'CPU' ? 'RAM' : 'VRAM' }}</dt>
+          <dd>{{ mem.usedGb.toFixed(1) }}<small>/ {{ mem.totalGb.toFixed(0) }} GB</small></dd>
+          <div class="bar"><span [style.width.%]="(mem.usedGb / mem.totalGb) * 100"></span></div>
+        </div>
+      }
     </dl>
   `,
   styles: `
@@ -51,6 +58,8 @@ import { Gauge } from './gauge';
       background: var(--surface-2);
       min-width: 0;
     }
+    /* Full row: "12.3 / 32 GB" does not fit in a narrow column. */
+    .stats > .memory { grid-column: 1 / -1; }
     dt { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
     dd { margin: 2px 0 0; font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
     small { font-size: 0.8rem; color: var(--muted); margin-left: 2px; font-weight: 500; }
@@ -67,6 +76,7 @@ import { Gauge } from './gauge';
 export class DeviceCard {
   readonly device = input.required<DeviceReading>();
   readonly kind = input.required<'CPU' | 'GPU'>();
+  readonly memory = input<MemoryReading | null>(null);
 
   protected readonly level = computed(() => tempLevel(this.device().tempC));
 

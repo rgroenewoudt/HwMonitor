@@ -7,19 +7,24 @@ public sealed record SensorSnapshot(
     IReadOnlyList<DeviceReading> Gpus,
     IReadOnlyList<TempReading> SystemTemps,
     IReadOnlyList<FanReading> Fans,
+    MemoryReading? Memory,
     double? Fps,
     SourceStatus Status);
 
 // Id is stable and unique (the LHM identifier), so the UI can tell two identical devices apart.
 
-/// <summary>A CPU or GPU with its main values.</summary>
+/// <summary>A CPU or GPU with its main values. Memory is the GPU's own memory (VRAM); null for the CPU.</summary>
 public sealed record DeviceReading(
     string Id,
     string Name,
     double? TempC,
     double? HotSpotC,
     double? LoadPercent,
-    double? PowerW);
+    double? PowerW,
+    MemoryReading? Memory);
+
+/// <summary>Used and total memory in GB (system RAM or GPU memory).</summary>
+public sealed record MemoryReading(double UsedGb, double TotalGb);
 
 /// <summary>A temperature that is not the CPU or GPU, e.g. motherboard, VRM or a drive.</summary>
 public sealed record TempReading(string Id, string Name, string Group, double TempC);

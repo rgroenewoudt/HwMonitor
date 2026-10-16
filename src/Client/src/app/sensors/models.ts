@@ -6,6 +6,7 @@ export interface SensorSnapshot {
   gpus: DeviceReading[];
   systemTemps: TempReading[];
   fans: FanReading[];
+  memory: MemoryReading | null;
   fps: number | null;
   status: SourceStatus;
 }
@@ -19,6 +20,13 @@ export interface DeviceReading {
   hotSpotC: number | null;
   loadPercent: number | null;
   powerW: number | null;
+  /** GPU memory (VRAM); null for the CPU. */
+  memory: MemoryReading | null;
+}
+
+export interface MemoryReading {
+  usedGb: number;
+  totalGb: number;
 }
 
 export interface TempReading {

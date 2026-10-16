@@ -31,10 +31,10 @@
 <main class="grid">
   @if (snapshot(); as s) {
     @if (s.cpu; as cpu) {
-      <app-device-card kind="CPU" [device]="cpu" data-testid="cpu-card" />
+      <app-device-card kind="CPU" [device]="cpu" [memory]="s.memory" data-testid="cpu-card" />
     }
     @for (gpu of s.gpus; track gpu.id) {
-      <app-device-card kind="GPU" [device]="gpu" data-testid="gpu-card" />
+      <app-device-card kind="GPU" [device]="gpu" [memory]="gpu.memory" data-testid="gpu-card" />
     }
     <app-system-temps [temps]="s.systemTemps" data-testid="system-card" />
     <app-fans-card [fans]="s.fans" data-testid="fans-card" />

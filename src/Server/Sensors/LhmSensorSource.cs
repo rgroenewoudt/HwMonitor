@@ -23,6 +23,7 @@ public sealed class LhmSensorSource : ISensorSource
         {
             IsCpuEnabled = true,
             IsGpuEnabled = true,
+            IsMemoryEnabled = true,
             IsMotherboardEnabled = true,
             IsControllerEnabled = true,
             IsStorageEnabled = true,
@@ -51,6 +52,7 @@ public sealed class LhmSensorSource : ISensorSource
         var gpus = new List<DeviceReading>();
         var systemTemps = new List<TempReading>();
         var fans = new List<FanReading>();
+        MemoryReading? memory = null;
 
         foreach (var hardware in _computer.Hardware)
         {
@@ -67,6 +69,11 @@ public sealed class LhmSensorSource : ISensorSource
                     if (gpu.TempC is not null || gpu.LoadPercent is not null)
                         gpus.Add(gpu);
                     AddFans(fans, hardware, "GPU", sensor => sensor.Name);
+                    break;
+
+                // LHM has two memory items: "Total Memory" (RAM) and "Virtual Memory" (RAM + page file).
+                case HardwareType.Memory when !hardware.Name.Contains("Virtual"):
+                    memory ??= Memory(hardware, "Memory Used", "Memory Available", gb: 1);
                     break;
 
                 case HardwareType.Motherboard:
@@ -100,7 +107,7 @@ public sealed class LhmSensorSource : ISensorSource
             }
         }
 
-        return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, Fps: null, _status);
+        return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, memory, Fps: null, _status);
     }
 
     private static DeviceReading ReadCpu(IHardware cpu)
@@ -117,7 +124,8 @@ public sealed class LhmSensorSource : ISensorSource
             temp,
             HotSpotC: null,
             Value(cpu, SensorType.Load, "CPU Total"),
-            Value(cpu, SensorType.Power, "Package", "CPU Package"));
+            Value(cpu, SensorType.Power, "Package", "CPU Package"),
+            Memory: null);
     }
 
     private static DeviceReading ReadGpu(IHardware gpu) => new(
@@ -126,7 +134,20 @@ public sealed class LhmSensorSource : ISensorSource
         Value(gpu, SensorType.Temperature, "GPU Core"),
         Value(gpu, SensorType.Temperature, "GPU Hot Spot", "GPU Hotspot"),
         Value(gpu, SensorType.Load, "GPU Core", "D3D 3D"),
-        Value(gpu, SensorType.Power, "GPU Package", "GPU Power", "GPU Core"));
+        Value(gpu, SensorType.Power, "GPU Package", "GPU Power", "GPU Core"),
+        Memory(gpu, "GPU Memory Used", "GPU Memory Free", gb: 1024)
+            ?? Memory(gpu, "D3D Dedicated Memory Used", "D3D Dedicated Memory Free", gb: 1024));
+
+    /// <summary>Used and total memory in GB. Total = used + free; <paramref name="gb"/> is the sensor value of 1 GB.</summary>
+    private static MemoryReading? Memory(IHardware hardware, string usedName, string freeName, double gb)
+    {
+        float? Find(string name) => hardware.Sensors
+            .FirstOrDefault(s => s.SensorType is SensorType.Data or SensorType.SmallData && s.Name == name)?.Value;
+
+        if (Find(usedName) is not { } used || Find(freeName) is not { } free || used + free <= 0)
+            return null;
+        return new MemoryReading(Math.Round(used / gb, 1), Math.Round((used + free) / gb, 1));
+    }
 
     private static void AddTemps(List<TempReading> list, IHardware hardware, string group, Func<ISensor, string> name)
     {
