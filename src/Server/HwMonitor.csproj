@@ -39,6 +39,12 @@
     <None Include="..\..\lib\adlx\ADLXBindings.dll" Link="ADLXBindings.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- AMD Ryzen Master Monitoring SDK: RyzenMasterShim.dll (native) is prebuilt by lib/ryzenmaster/build.ps1.
+       The SDK itself (Platform.dll, driver) is not shipped; it is loaded from its install folder. -->
+  <ItemGroup>
+    <None Include="..\..\lib\ryzenmaster\RyzenMasterShim.dll" Link="RyzenMasterShim.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- The Angular app is embedded in the exe instead of copied next to it. -->
   <ItemGroup>
     <Content Remove="wwwroot\**" />

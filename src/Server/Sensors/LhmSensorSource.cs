@@ -9,6 +9,7 @@ public sealed class LhmSensorSource : ISensorSource
 {
     private readonly Computer _computer;
     private readonly AdlxGpuReader? _adlx;
+    private readonly RyzenMasterCpuReader? _ryzenMaster;
     private readonly SensorOptions _options;
     private readonly SourceStatus _status;
     private readonly TimeProvider _time;
@@ -41,6 +42,12 @@ public sealed class LhmSensorSource : ISensorSource
         _adlx = _options.UseAdlx ? AdlxGpuReader.TryCreate(_options.ShowZeroRpmFans, logger) : null;
         foreach (var name in _adlx?.GpuNames ?? [])
             logger.LogInformation("Found ADLX GPU: {Name}", name);
+
+        // AMD CPUs: temperature and power from the Ryzen Master SDK when LHM has none (LHM needs the PawnIO driver).
+        // The SDK needs admin; without it, skip it instead of loading it for nothing.
+        var isAmdCpu = _computer.Hardware.Any(h => h.HardwareType == HardwareType.Cpu && h.Name.Contains("AMD", StringComparison.OrdinalIgnoreCase));
+        if (_options.UseRyzenMaster && isAmdCpu && isAdmin)
+            _ryzenMaster = RyzenMasterCpuReader.TryCreate(time, logger);
     }
 
     public SensorSnapshot Read()
@@ -58,7 +65,7 @@ public sealed class LhmSensorSource : ISensorSource
             switch (hardware.HardwareType)
             {
                 case HardwareType.Cpu:
-                    cpu ??= ReadCpu(hardware);
+                    cpu ??= WithRyzenMaster(ReadCpu(hardware));
                     break;
 
                 case HardwareType.GpuAmd when _adlx is not null:
@@ -132,6 +139,15 @@ public sealed class LhmSensorSource : ISensorSource
             Value(cpu, SensorType.Load, "CPU Total"),
             Value(cpu, SensorType.Power, "Package", "CPU Package"),
             Memory: null);
+    }
+
+    /// <summary>Fills the CPU temperature and power from Ryzen Master when LHM has no value. The Id stays LHM's.</summary>
+    private DeviceReading WithRyzenMaster(DeviceReading cpu)
+    {
+        if (_ryzenMaster is null || (cpu.TempC is not null && cpu.PowerW is not null))
+            return cpu;
+        var (temp, power) = _ryzenMaster.Read();
+        return cpu with { TempC = cpu.TempC ?? temp, PowerW = cpu.PowerW ?? power };
     }
 
     private static DeviceReading ReadGpu(IHardware gpu) => new(
@@ -212,5 +228,6 @@ public sealed class LhmSensorSource : ISensorSource
     {
         _computer.Close();
         _adlx?.Dispose();
+        _ryzenMaster?.Dispose();
     }
 }
