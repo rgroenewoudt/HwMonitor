@@ -46,7 +46,6 @@ export interface FanReading {
 export interface SourceStatus {
   source: 'hardware' | 'fake';
   isAdmin: boolean;
-  driverInstalled: boolean;
   message: string | null;
 }
 

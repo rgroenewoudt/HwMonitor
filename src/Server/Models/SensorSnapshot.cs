@@ -32,4 +32,4 @@ public sealed record TempReading(string Id, string Name, string Group, double Te
 public sealed record FanReading(string Id, string Name, string Source, double Rpm);
 
 /// <summary>Tells the UI where the data comes from and if something is missing.</summary>
-public sealed record SourceStatus(string Source, bool IsAdmin, bool DriverInstalled, string? Message);
+public sealed record SourceStatus(string Source, bool IsAdmin, string? Message);

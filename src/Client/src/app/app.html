@@ -18,6 +18,9 @@
 
   <div class="actions">
     <app-wake-lock-button />
+    @if (snapshot()?.fps; as fps) {
+      <span class="badge fps" data-testid="fps">{{ fps | number: '1.0-0' }} FPS</span>
+    }
     <span class="badge" [attr.data-status]="status()" data-testid="status-badge" role="status">
       <span class="dot"></span>{{ statusText() }}
     </span>

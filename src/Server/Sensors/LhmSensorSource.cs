@@ -11,6 +11,7 @@ public sealed class LhmSensorSource : ISensorSource
     private const double MaxValidTempC = 125;
 
     private readonly Computer _computer;
+    private readonly AdlxGpuReader? _adlx;
     private readonly SensorOptions _options;
     private readonly SourceStatus _status;
     private readonly TimeProvider _time;
@@ -31,19 +32,18 @@ public sealed class LhmSensorSource : ISensorSource
         _computer.Open();
 
         var isAdmin = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        var driverInstalled = LibreHardwareMonitor.PawnIo.PawnIo.IsInstalled;
-        string? message = (isAdmin, driverInstalled) switch
-        {
-            (false, _) => "Not running as administrator. CPU, motherboard and fan values may be missing.",
-            (_, false) => "PawnIO driver is not installed. CPU, motherboard and fan values may be missing.",
-            _ => null,
-        };
-        _status = new SourceStatus("hardware", isAdmin, driverInstalled, message);
+        var message = isAdmin ? null : "Not running as administrator. CPU, motherboard and fan values may be missing.";
+        _status = new SourceStatus("hardware", isAdmin, message);
 
         if (message is not null)
             logger.LogWarning("{Message}", message);
         foreach (var hardware in _computer.Hardware)
             logger.LogInformation("Found hardware: {Type} {Name}", hardware.HardwareType, hardware.Name);
+
+        // AMD GPUs come from ADLX when it works (more values, and the game FPS); else from LHM.
+        _adlx = _options.UseAdlx ? AdlxGpuReader.TryCreate(_options.ShowZeroRpmFans, logger) : null;
+        foreach (var name in _adlx?.GpuNames ?? [])
+            logger.LogInformation("Found ADLX GPU: {Name}", name);
     }
 
     public SensorSnapshot Read()
@@ -62,6 +62,9 @@ public sealed class LhmSensorSource : ISensorSource
             {
                 case HardwareType.Cpu:
                     cpu ??= ReadCpu(hardware);
+                    break;
+
+                case HardwareType.GpuAmd when _adlx is not null:
                     break;
 
                 case HardwareType.GpuAmd or HardwareType.GpuNvidia or HardwareType.GpuIntel:
@@ -108,7 +111,10 @@ public sealed class LhmSensorSource : ISensorSource
             }
         }
 
-        return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, memory, Fps: null, _status);
+        if (_adlx is not null)
+            gpus.AddRange(_adlx.ReadGpus(fans));
+
+        return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, memory, _adlx?.ReadFps(), _status);
     }
 
     private static DeviceReading ReadCpu(IHardware cpu)
@@ -207,5 +213,9 @@ public sealed class LhmSensorSource : ISensorSource
             UpdateRecursive(sub);
     }
 
-    public void Dispose() => _computer.Close();
+    public void Dispose()
+    {
+        _computer.Close();
+        _adlx?.Dispose();
+    }
 }

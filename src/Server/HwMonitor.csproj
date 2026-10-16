@@ -32,6 +32,13 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.13" />
   </ItemGroup>
 
+  <!-- AMD ADLX: prebuilt from https://github.com/Rem0o/ADLXWrapper by lib/adlx/build.ps1.
+       ADLXBindings.dll is native; the single-file publish bundles and extracts it (IncludeNativeLibrariesForSelfExtract). -->
+  <ItemGroup>
+    <Reference Include="ADLXWrapper" HintPath="..\..\lib\adlx\ADLXWrapper.dll" />
+    <None Include="..\..\lib\adlx\ADLXBindings.dll" Link="ADLXBindings.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- The Angular app is embedded in the exe instead of copied next to it. -->
   <ItemGroup>
     <Content Remove="wwwroot\**" />

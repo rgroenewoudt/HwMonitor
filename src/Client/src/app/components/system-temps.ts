@@ -32,7 +32,7 @@ interface Group {
         </ul>
       </section>
     } @empty {
-      <p class="empty">No system temperatures found. Run as administrator with the PawnIO driver installed.</p>
+      <p class="empty">No system temperatures found. Run as administrator.</p>
     }
   `,
   styles: `

@@ -3,16 +3,15 @@
 A web dashboard for live CPU, GPU and system temperatures and fan speeds of this Windows PC.
 Open it on the PC, or on a phone or tablet on the same network.
 
-- **Server**: ASP.NET Core (.NET 10), [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor), SignalR
+- **Server**: ASP.NET Core (.NET 10), [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor), AMD [ADLX](https://gpuopen.com/adlx/) (via [ADLXWrapper](https://github.com/Rem0o/ADLXWrapper)), SignalR
 - **Client**: Angular 22 (standalone, signals, zoneless), PWA, custom CSS
 - **Tests**: Playwright (desktop, Pixel 7, Pixel 7 landscape)
 
 ## Requirements
 
 - Windows 10/11, x64
-- **Administrator rights** and the **[PawnIO](https://pawnio.eu/) driver** for CPU, motherboard, drive and fan sensors.
-  LibreHardwareMonitor 0.9.6 uses PawnIO (not the old WinRing0 driver that Windows Defender blocks).
-  Without them you only get GPU values, and the page shows a warning.
+- **Administrator rights** for CPU, motherboard, drive and fan sensors. Without them you get fewer values, and the page shows a warning.
+- AMD GPUs and the game FPS are read with AMD ADLX, which comes with the AMD driver. Without it, AMD GPUs come from LibreHardwareMonitor and there is no FPS.
 - To build: .NET 10 SDK and Node.js 24
 
 ## Run (published exe)
@@ -53,6 +52,7 @@ network the button is hidden. "Add to Home screen" still works.
 | `Urls` | `http://0.0.0.0:5080` | Address and port |
 | `Sensors:PollIntervalMs` | `1000` | How often values update (min 250) |
 | `Sensors:ShowZeroRpmFans` | `false` | Also show fans that stand still / are not connected |
+| `Sensors:UseAdlx` | `true` | Read AMD GPUs and FPS with ADLX (skipped when there is no AMD driver) |
 | `Sensors:UseFake` | `false` | Generated values, no admin needed (tests, UI work) |
 | `Sensors:FreezeFake` | `false` | With `UseFake`: values do not move (screenshot tests) |
 
@@ -88,5 +88,5 @@ then run `npx playwright test`. Playwright reuses running servers.
 
 ## Later
 
-- FPS via PresentMon (`SensorSnapshot.Fps` is already there, now always `null`)
+- FPS for NVIDIA/Intel GPUs via PresentMon (now only AMD, via ADLX)
 - History charts, alerts, run as Windows Service

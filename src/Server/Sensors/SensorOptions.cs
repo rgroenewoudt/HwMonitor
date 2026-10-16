@@ -13,4 +13,7 @@ public sealed class SensorOptions
     public int PollIntervalMs { get; set; } = 1000;
 
     public bool ShowZeroRpmFans { get; set; }
+
+    /// <summary>Read AMD GPUs (and the game FPS) with AMD ADLX instead of LHM. Without an AMD driver it is skipped.</summary>
+    public bool UseAdlx { get; set; } = true;
 }

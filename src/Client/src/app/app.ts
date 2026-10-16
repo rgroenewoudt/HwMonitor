@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { DeviceCard } from './components/device-card';
 import { FansCard } from './components/fans-card';
 import { SystemTemps } from './components/system-temps';
@@ -15,7 +15,7 @@ const STATUS_TEXT = {
 
 @Component({
   selector: 'app-root',
-  imports: [DatePipe, DeviceCard, FansCard, SystemTemps, WakeLockButton],
+  imports: [DatePipe, DecimalPipe, DeviceCard, FansCard, SystemTemps, WakeLockButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',

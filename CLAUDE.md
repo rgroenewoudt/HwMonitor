@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 10, `net10.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). FPS (PresentMon) is planned: `SensorSnapshot.Fps` exists but is always `null`.
+A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 10, `net10.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). `SensorSnapshot.Fps` comes from AMD ADLX (only AMD GPUs; PresentMon for others is planned).
 
 ## Commands
 
@@ -12,7 +12,7 @@ A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windo
 # Server (src/Server)
 dotnet build                              # Debug: no web UI embedded
 dotnet run --launch-profile fake          # fake sensors, no admin needed, http://0.0.0.0:5080
-dotnet run --launch-profile http          # real sensors (needs admin + PawnIO driver)
+dotnet run --launch-profile http          # real sensors (needs admin)
 dotnet publish -c Release                 # single exe (+ appsettings.json), runs ng build first
 dotnet publish -c Release -p:RequireAdmin=false -o <dir>   # same exe without the admin prompt (for testing)
 
@@ -38,6 +38,7 @@ npm run icons                             # re-render PNG icons from public/icon
 - `LhmSensorSource` (real) vs `FakeSensorSource` (sine waves; `FreezeFake` = fixed values) are chosen in `Program.cs` by `Sensors:UseFake`. Only the poller thread calls `Read()`; LHM's `Computer` is not thread-safe.
 - Sensor name mapping in `LhmSensorSource` (e.g. AMD `Core (Tctl/Tdie)`, Intel `CPU Package`, `GPU Hot Spot`) is based on LHM sensor names. Temps ≤0 or ≥125 °C and power ≤0 W are treated as "no value" (unused SuperIO inputs, missing driver).
 - Drive names: many drives report only a part number (`WDS100T1X0E-00AFY0`). `DriveNames.Pretty` maps it with `Sensors/drive-names.json` (embedded, generated from the Nanohub SSD/HDD CSV files): vendor word removed, only A-Z/0-9 kept, longest `match` prefix wins. No match → the original name.
+- AMD ADLX (`AdlxGpuReader`, used inside `LhmSensorSource`): when it starts and finds a GPU, LHM's `GpuAmd` items are skipped and the AMD GPUs, their fans and `Fps` come from ADLX (Ids `/adlx/gpu/{UniqueId}`). When it fails (no AMD driver, `Sensors:UseAdlx=false`) it logs once and LHM is used. It calls the public SWIG bindings (`ADLXWrapper.Bindings`) directly, because the wrapper classes have no usage, VRAM or FPS.
 - Memory is in GB: system RAM = `Memory Used` + `Memory Available` from the "Total Memory" item (not "Virtual Memory"), shown on the CPU card. GPU VRAM = `GPU Memory Used` + `GPU Memory Free` (MB), fallback `D3D Dedicated Memory Used/Free`.
 - The SignalR client uses WebSockets with `skipNegotiation` and retries forever; it also restarts on `visibilitychange` (phones waking up) when it is disconnected, reconnecting, or got no message for 5 s (a dead socket can still look connected).
 - Temperature color levels (`cool/warm/hot/none`) come from `temperature.ts` and are set as `data-level` attributes; global `styles.scss` maps them to `--level-color`. Shared `.card` / `.card-head` styles are global, component styles are inline in each component.
@@ -50,6 +51,7 @@ npm run icons                             # re-render PNG icons from public/icon
 - A Debug build without `wwwroot/index.html` has no embedded manifest; `Program.cs` then uses a `NullFileProvider` and logs a warning.
 - `app.manifest` (`requireAdministrator`) is only applied when publishing (`_IsPublishing`), so `dotnet run` and the tests work without admin. A published exe started from a non-admin shell fails with "Permission denied".
 - `ContentRootPath = AppContext.BaseDirectory`, so `appsettings.json` next to the exe is found from any working folder.
+- ADLX DLLs are prebuilt and committed in `lib/adlx/` (`build.ps1` rebuilds them: pinned ADLXWrapper + ADLX SDK, adds an `IADLXFPS*` pointer helper to the swig file, static VC++ runtime). `ADLXBindings.dll` is native: copied next to the exe in dev, bundled in the single-file exe on publish.
 - Trimming is off on purpose (LHM and SignalR use reflection).
 
 ## Tests (Playwright, `src/Client/e2e`)
@@ -62,5 +64,5 @@ npm run icons                             # re-render PNG icons from public/icon
 
 ## Environment notes
 
-- LibreHardwareMonitorLib 0.9.6 uses the **PawnIO** driver (must be installed separately). Without admin + PawnIO only GPU values work; the snapshot `status.message` shows a warning in the UI.
+- Without admin, CPU, motherboard and fan values may be missing; the snapshot `status.message` shows a warning in the UI.
 - The Wake Lock button is only shown in a secure context (https/localhost), so it is hidden over plain http on the LAN.

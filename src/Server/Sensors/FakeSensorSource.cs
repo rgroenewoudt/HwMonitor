@@ -34,7 +34,7 @@ public sealed class FakeSensorSource(IOptions<SensorOptions> options, TimeProvid
             ],
             new MemoryReading(Wave(9.5, 21, 45, 2), 31.9),
             Fps: null,
-            new SourceStatus("fake", IsAdmin: false, DriverInstalled: false, Message: null));
+            new SourceStatus("fake", IsAdmin: false, Message: null));
     }
 
     public void Dispose() { }
