@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 10, `net10.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). `SensorSnapshot.Fps` comes from AMD ADLX (only AMD GPUs; PresentMon for others is planned).
+A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 10, `net10.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). Values come from HWiNFO shared memory when HWiNFO runs, else from LibreHardwareMonitor (LHM). `SensorSnapshot.Fps` comes from HWiNFO's framerate sensor (all GPUs), or in LHM mode from AMD ADLX (only AMD GPUs).
 
 ## Commands
 
@@ -35,7 +35,9 @@ npm run icons                             # re-render PNG icons from public/icon
 - Every device, temp and fan has an `Id` (the LHM identifier, e.g. `/lpc/nct6799d/0/fan/1`). Use it as `track` key; names are not unique (two identical GPUs, sensors from several board chips).
 - When `Read()` throws, the poller keeps the last values but sets `status.message`, so the UI shows the error.
 - `Server/Models/SensorSnapshot.cs` is mirrored by hand in `Client/src/app/sensors/models.ts`. Change both together.
-- `LhmSensorSource` (real) vs `FakeSensorSource` (sine waves; `FreezeFake` = fixed values) are chosen in `Program.cs` by `Sensors:UseFake`. Only the poller thread calls `Read()`; LHM's `Computer` is not thread-safe.
+- `Program.cs` chooses the source: `Sensors:UseFake` → `FakeSensorSource` (sine waves; `FreezeFake` = fixed values); else `Sensors:Source` = `Auto` (default) / `HwInfo` → `AutoSensorSource`, `Lhm` → `LhmSensorSource`. Only the poller thread calls `Read()`; LHM's `Computer` is not thread-safe.
+- HWiNFO (`HwInfoSharedMemory` reads `Global\HWiNFO_SENS_SM2`, `HwInfoSensorSource` maps it): `AutoSensorSource` uses it every poll when it is there and updated (≤10 s old); else it creates `LhmSensorSource` lazily (so the LHM driver is not loaded while HWiNFO works) and keeps it. `HwInfo` mode never falls back, it shows a message. Element sizes come from the header and are checked (too small = "no HWiNFO"); the mapping is closed and opened again when HWiNFO stops. Matching uses HWiNFO's original English names (`*Orig`, ANSI = Latin1), the UI shows the user names. CPU/GPU are split in several groups (`CPU [#0]: <name>: Enhanced`, GPUs are `dGPU [#0]:` / `iGPU`) and are merged. °F is converted. FPS: `PresentMon` group `Framerate Presented (avg)` first (the GPU group's own `Framerate` is often 0). AMD has no free/total VRAM in HWiNFO: used = `GPU D3D Memory Dedicated`, total = registry `HardwareInformation.qwMemorySize` of the display driver with the same `DriverDesc` (`GpuMemorySize`). Drive groups `S.M.A.R.T.: <model> (<serial>) [C:]`; board sensors get the chip name in brackets as prefix, `#2` for the same chip twice. Ids: `/hwinfo/{sensorId:x}/{instance}[/{readingId:x}]`, so they change when the source switches. Names were tuned on one AMD system (Ryzen 5950X, RX 9070, Gigabyte X570); Intel/NVIDIA names are guesses. With `Logging:LogLevel:HwMonitor.Sensors=Debug` all labels are logged.
+- `SensorRules` has the shared value rules (`IsValidTemp`, `RepeatedNames`, `IsAdmin`) for LHM, ADLX and HWiNFO.
 - Sensor name mapping in `LhmSensorSource` (e.g. AMD `Core (Tctl/Tdie)`, Intel `CPU Package`, `GPU Hot Spot`) is based on LHM sensor names. Temps ≤0 or ≥125 °C and power ≤0 W are treated as "no value" (unused SuperIO inputs, missing driver).
 - Drive names: many drives report only a part number (`WDS100T1X0E-00AFY0`). `DriveNames.Pretty` maps it with `Sensors/drive-names.json` (embedded, generated from the Nanohub SSD/HDD CSV files): vendor word removed, only A-Z/0-9 kept, longest `match` prefix wins. No match → the original name.
 - AMD ADLX (`AdlxGpuReader`, used inside `LhmSensorSource`): when it starts and finds a GPU, LHM's `GpuAmd` items are skipped and the AMD GPUs, their fans and `Fps` come from ADLX (Ids `/adlx/gpu/{UniqueId}`). When it fails (no AMD driver, `Sensors:UseAdlx=false`) it logs once and LHM is used. It calls the public SWIG bindings (`ADLXWrapper.Bindings`) directly, because the wrapper classes have no usage, VRAM or FPS.
@@ -65,5 +67,6 @@ npm run icons                             # re-render PNG icons from public/icon
 
 ## Environment notes
 
-- Without admin, CPU, motherboard and fan values may be missing; the snapshot `status.message` shows a warning in the UI.
+- Without admin, CPU, motherboard and fan values may be missing; the snapshot `status.message` shows a warning in the UI. Reading HWiNFO needs no admin (but the published exe still asks for it, for the LHM fallback).
+- The free HWiNFO version turns shared memory off after 12 hours; then the app falls back to LHM.
 - The Wake Lock button is only shown in a secure context (https/localhost), so it is hidden over plain http on the LAN.

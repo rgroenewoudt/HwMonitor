@@ -10,8 +10,6 @@ namespace HwMonitor.Sensors;
 /// </summary>
 public sealed class AdlxGpuReader : IDisposable
 {
-    private const double MaxValidTempC = 125;
-
     private readonly SafeADLXHelper _helper;
     private readonly IADLXPerformanceMonitoringServices _perf;
     private readonly IReadOnlyList<Gpu> _gpus;
@@ -188,7 +186,7 @@ public sealed class AdlxGpuReader : IDisposable
         return getter(ref value).HasError() ? null : value;
     }
 
-    private static double? ValidTemp(double? value) => value is > 0 and < MaxValidTempC ? Math.Round(value.Value, 1) : null;
+    private static double? ValidTemp(double? value) => SensorRules.IsValidTemp(value) ? Math.Round(value!.Value, 1) : null;
 
     private static double? ValidPower(double? value) => value > 0 ? Math.Round(value.Value, 1) : null;
 

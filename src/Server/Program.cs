@@ -14,10 +14,12 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 
 builder.Services.Configure<SensorOptions>(builder.Configuration.GetSection(SensorOptions.Section));
 builder.Services.AddSingleton(TimeProvider.System);
-builder.Services.AddSingleton<ISensorSource>(sp =>
-    sp.GetRequiredService<IOptions<SensorOptions>>().Value.UseFake
-        ? ActivatorUtilities.CreateInstance<FakeSensorSource>(sp)
-        : ActivatorUtilities.CreateInstance<LhmSensorSource>(sp));
+builder.Services.AddSingleton<ISensorSource>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value switch
+{
+    { UseFake: true } => ActivatorUtilities.CreateInstance<FakeSensorSource>(sp),
+    { Source: SensorSourceKind.Lhm } => ActivatorUtilities.CreateInstance<LhmSensorSource>(sp),
+    _ => (ISensorSource)ActivatorUtilities.CreateInstance<AutoSensorSource>(sp),
+});
 builder.Services.AddSingleton<SensorPoller>();
 builder.Services.AddHostedService(sp => sp.GetRequiredService<SensorPoller>());
 builder.Services.AddSignalR();

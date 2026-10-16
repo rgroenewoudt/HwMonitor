@@ -44,7 +44,7 @@ export interface FanReading {
 }
 
 export interface SourceStatus {
-  source: 'hardware' | 'fake';
+  source: 'hardware' | 'hwinfo' | 'fake';
   isAdmin: boolean;
   message: string | null;
 }

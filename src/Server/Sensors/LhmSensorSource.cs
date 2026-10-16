@@ -1,4 +1,3 @@
-using System.Security.Principal;
 using HwMonitor.Models;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Extensions.Options;
@@ -8,8 +7,6 @@ namespace HwMonitor.Sensors;
 /// <summary>Reads real hardware sensors with LibreHardwareMonitor.</summary>
 public sealed class LhmSensorSource : ISensorSource
 {
-    private const double MaxValidTempC = 125;
-
     private readonly Computer _computer;
     private readonly AdlxGpuReader? _adlx;
     private readonly SensorOptions _options;
@@ -31,7 +28,7 @@ public sealed class LhmSensorSource : ISensorSource
         };
         _computer.Open();
 
-        var isAdmin = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        var isAdmin = SensorRules.IsAdmin();
         var message = isAdmin ? null : "Not running as administrator. CPU, motherboard and fan values may be missing.";
         _status = new SourceStatus("hardware", isAdmin, message);
 
@@ -195,16 +192,11 @@ public sealed class LhmSensorSource : ISensorSource
         return null;
     }
 
-    // Unused SuperIO inputs often show 0, -128 or 255 °C.
-    private static bool IsValidTemp(float? value) => value is > 0 and < (float)MaxValidTempC;
+    private static bool IsValidTemp(float? value) => SensorRules.IsValidTemp(value);
 
     /// <summary>Sensor names of this type that exist on more than one of the hardware items.</summary>
     private static HashSet<string> RepeatedNames(IEnumerable<IHardware> hardware, SensorType type) =>
-        hardware.SelectMany(h => h.Sensors.Where(s => s.SensorType == type).Select(s => s.Name).Distinct())
-            .GroupBy(name => name)
-            .Where(g => g.Count() > 1)
-            .Select(g => g.Key)
-            .ToHashSet();
+        SensorRules.RepeatedNames(hardware.Select(h => h.Sensors.Where(s => s.SensorType == type).Select(s => s.Name)));
 
     private static IEnumerable<IHardware> Flatten(IHardware hardware) =>
         new[] { hardware }.Concat(hardware.SubHardware.SelectMany(Flatten));

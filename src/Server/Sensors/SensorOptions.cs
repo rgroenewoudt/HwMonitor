@@ -1,8 +1,19 @@
 namespace HwMonitor.Sensors;
 
+public enum SensorSourceKind
+{
+    /// <summary>HWiNFO shared memory when it is there, else LibreHardwareMonitor.</summary>
+    Auto,
+    HwInfo,
+    Lhm,
+}
+
 public sealed class SensorOptions
 {
     public const string Section = "Sensors";
+
+    /// <summary>Where real values come from. <see cref="UseFake"/> wins over this.</summary>
+    public SensorSourceKind Source { get; set; } = SensorSourceKind.Auto;
 
     /// <summary>Use generated values instead of real hardware (for tests and UI work).</summary>
     public bool UseFake { get; set; }
