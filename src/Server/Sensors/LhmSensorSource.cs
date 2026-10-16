@@ -95,10 +95,12 @@ public sealed class LhmSensorSource : ISensorSource
                     break;
 
                 case HardwareType.Storage:
-                    var tempCount = hardware.Sensors.Count(s => s.SensorType == SensorType.Temperature);
+                    // NVMe drives also report their "Warning" and "Critical" limits as temperatures.
+                    static bool IsDriveTemp(ISensor s) => !s.Name.Contains("Warning") && !s.Name.Contains("Critical");
+                    var tempCount = hardware.Sensors.Count(s => s.SensorType == SensorType.Temperature && IsDriveTemp(s));
                     var driveName = DriveNames.Pretty(hardware.Name);
                     AddTemps(systemTemps, hardware, "Drives",
-                        sensor => tempCount == 1 ? driveName : $"{driveName} · {sensor.Name}");
+                        sensor => tempCount == 1 ? driveName : $"{driveName} · {sensor.Name}", IsDriveTemp);
                     break;
 
                 case HardwareType.Cooler:
@@ -156,11 +158,12 @@ public sealed class LhmSensorSource : ISensorSource
         return new MemoryReading(Math.Round(used / gb, 1), Math.Round((used + free) / gb, 1));
     }
 
-    private static void AddTemps(List<TempReading> list, IHardware hardware, string group, Func<ISensor, string> name)
+    private static void AddTemps(List<TempReading> list, IHardware hardware, string group, Func<ISensor, string> name,
+        Func<ISensor, bool>? include = null)
     {
         foreach (var sensor in hardware.Sensors)
         {
-            if (sensor.SensorType == SensorType.Temperature && IsValidTemp(sensor.Value))
+            if (sensor.SensorType == SensorType.Temperature && IsValidTemp(sensor.Value) && (include?.Invoke(sensor) ?? true))
                 list.Add(new TempReading(sensor.Identifier.ToString(), name(sensor), group, Math.Round(sensor.Value!.Value, 1)));
         }
     }
