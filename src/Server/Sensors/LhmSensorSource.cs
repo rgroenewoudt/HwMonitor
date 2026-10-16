@@ -85,16 +85,17 @@ public sealed class LhmSensorSource : ISensorSource
                     foreach (var sub in chips)
                     {
                         AddTemps(systemTemps, sub, "Motherboard",
-                            sensor => repeatedTemps.Contains(sensor.Name) ? $"{sub.Name} � {sensor.Name}" : sensor.Name);
+                            sensor => repeatedTemps.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name);
                         AddFans(fans, sub, "Motherboard",
-                            sensor => repeatedFans.Contains(sensor.Name) ? $"{sub.Name} � {sensor.Name}" : sensor.Name);
+                            sensor => repeatedFans.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name);
                     }
                     break;
 
                 case HardwareType.Storage:
                     var tempCount = hardware.Sensors.Count(s => s.SensorType == SensorType.Temperature);
+                    var driveName = DriveNames.Pretty(hardware.Name);
                     AddTemps(systemTemps, hardware, "Drives",
-                        sensor => tempCount == 1 ? hardware.Name : $"{hardware.Name} · {sensor.Name}");
+                        sensor => tempCount == 1 ? driveName : $"{driveName} · {sensor.Name}");
                     break;
 
                 case HardwareType.Cooler:

@@ -432,6 +432,12 @@
     "type": "SSD"
   },
   {
+    "mpn": "CT500BX100SSD1",
+    "match": "CT500BX100SSD1",
+    "name": "Crucial BX100 500GB",
+    "type": "SSD"
+  },
+  {
     "mpn": "CT500MX500SSD1",
     "match": "CT500MX500SSD1",
     "name": "Crucial MX500 500GB",

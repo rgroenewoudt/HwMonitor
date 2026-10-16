@@ -41,6 +41,12 @@
     <EmbeddedResource Include="wwwroot\**" Condition="'$(Configuration)' != 'Release' Or '$(SkipClientBuild)' == 'true'" />
   </ItemGroup>
 
+  <!-- Drive part number → readable name (DriveNames.cs), also embedded instead of copied. -->
+  <ItemGroup>
+    <Content Remove="Sensors\drive-names.json" />
+    <EmbeddedResource Include="Sensors\drive-names.json" LogicalName="drive-names.json" />
+  </ItemGroup>
+
   <!-- Release builds first build the Angular app into wwwroot. Skip with -p:SkipClientBuild=true.
        ng build only runs when a client file is newer than wwwroot\index.html. -->
   <ItemGroup>
