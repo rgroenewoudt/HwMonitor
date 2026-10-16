@@ -1,0 +1,2084 @@
+[
+  {
+    "mpn": "0F18335",
+    "match": "0F18335",
+    "name": "HGST Ultrastar He6 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "0F23267",
+    "match": "0F23267",
+    "name": "HGST Ultrastar He8 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ASP580SS3-120GM-C",
+    "match": "ASP580SS3120GMC",
+    "name": "ADATA Premier SP580 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX6000NP-128GT-C",
+    "match": "ASX6000NP128GTC",
+    "name": "ADATA XPG SX6000 128GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX6000NP-256GT-C",
+    "match": "ASX6000NP256GTC",
+    "name": "ADATA XPG SX6000 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX6000NP-512GT-C",
+    "match": "ASX6000NP512GTC",
+    "name": "ADATA XPG SX6000 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX8200NP-240GT-C",
+    "match": "ASX8200NP240GTC",
+    "name": "ADATA XPG SX8200 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX8200NP-480GT-C",
+    "match": "ASX8200NP480GTC",
+    "name": "ADATA XPG SX8200 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX8200PNP-1TT-C",
+    "match": "ASX8200PNP1TTC",
+    "name": "ADATA XPG SX8200 Pro 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX8200PNP-2TT-C",
+    "match": "ASX8200PNP2TTC",
+    "name": "ADATA XPG SX8200 Pro 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ASX8200PNP-512GT-C",
+    "match": "ASX8200PNP512GTC",
+    "name": "ADATA XPG SX8200 Pro 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F0500GBMP600GS",
+    "match": "CSSDF0500GBMP600GS",
+    "name": "Corsair MP600 GS 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F0500GBMP600PLP",
+    "match": "CSSDF0500GBMP600PLP",
+    "name": "Corsair MP600 Pro LPX 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP400",
+    "match": "CSSDF1000GBMP400",
+    "name": "Corsair MP400 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP400R2",
+    "match": "CSSDF1000GBMP400R2",
+    "name": "Corsair MP400 R2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600",
+    "match": "CSSDF1000GBMP600",
+    "name": "Corsair MP600 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600COR",
+    "match": "CSSDF1000GBMP600COR",
+    "name": "Corsair MP600 Core 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600GS",
+    "match": "CSSDF1000GBMP600GS",
+    "name": "Corsair MP600 GS 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600PLP",
+    "match": "CSSDF1000GBMP600PLP",
+    "name": "Corsair MP600 Pro LPX 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600PNH",
+    "match": "CSSDF1000GBMP600PNH",
+    "name": "Corsair MP600 Pro NH 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600PRO",
+    "match": "CSSDF1000GBMP600PRO",
+    "name": "Corsair MP600 Pro 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600PXT",
+    "match": "CSSDF1000GBMP600PXT",
+    "name": "Corsair MP600 Pro XT 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F1000GBMP600R2",
+    "match": "CSSDF1000GBMP600R2",
+    "name": "Corsair MP600 R2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F120GBLE200B",
+    "match": "CSSDF120GBLE200B",
+    "name": "Corsair Force LE 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F120GBLSB",
+    "match": "CSSDF120GBLSB",
+    "name": "Corsair Force LS 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F120GBMP500",
+    "match": "CSSDF120GBMP500",
+    "name": "Corsair Force MP500 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP400R2",
+    "match": "CSSDF2000GBMP400R2",
+    "name": "Corsair MP400 R2 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600",
+    "match": "CSSDF2000GBMP600",
+    "name": "Corsair MP600 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600COR",
+    "match": "CSSDF2000GBMP600COR",
+    "name": "Corsair MP600 Core 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600GS",
+    "match": "CSSDF2000GBMP600GS",
+    "name": "Corsair MP600 GS 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600HXE",
+    "match": "CSSDF2000GBMP600HXE",
+    "name": "Corsair MP600 Pro Hydro X Edition 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600PLP",
+    "match": "CSSDF2000GBMP600PLP",
+    "name": "Corsair MP600 Pro LPX 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600PRO",
+    "match": "CSSDF2000GBMP600PRO",
+    "name": "Corsair MP600 Pro 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F2000GBMP600PXT",
+    "match": "CSSDF2000GBMP600PXT",
+    "name": "Corsair MP600 Pro XT 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F240GBMP500",
+    "match": "CSSDF240GBMP500",
+    "name": "Corsair Force MP500 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F240GBMP510",
+    "match": "CSSDF240GBMP510",
+    "name": "Corsair Force MP510 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP400",
+    "match": "CSSDF4000GBMP400",
+    "name": "Corsair MP400 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP400R2",
+    "match": "CSSDF4000GBMP400R2",
+    "name": "Corsair MP400 R2 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP600COR",
+    "match": "CSSDF4000GBMP600COR",
+    "name": "Corsair MP600 Core 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP600PLP",
+    "match": "CSSDF4000GBMP600PLP",
+    "name": "Corsair MP600 Pro LPX 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP600PNH",
+    "match": "CSSDF4000GBMP600PNH",
+    "name": "Corsair MP600 Pro NH 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F4000GBMP600PXT",
+    "match": "CSSDF4000GBMP600PXT",
+    "name": "Corsair MP600 Pro XT 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F480GBMP500",
+    "match": "CSSDF480GBMP500",
+    "name": "Corsair Force MP500 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F480GBMP510",
+    "match": "CSSDF480GBMP510",
+    "name": "Corsair Force MP510 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F480GBMP510B",
+    "match": "CSSDF480GBMP510B",
+    "name": "Corsair Force MP510 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F500GBMP600",
+    "match": "CSSDF500GBMP600",
+    "name": "Corsair MP600 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F960GBLSB",
+    "match": "CSSDF960GBLSB",
+    "name": "Corsair Force LS 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-F960GBMP510B",
+    "match": "CSSDF960GBMP510B",
+    "name": "Corsair Force MP510 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CSSD-N1920GBXTI",
+    "match": "CSSDN1920GBXTI",
+    "name": "Corsair Neutron XTi 1.92TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000BX500SSD1",
+    "match": "CT1000BX500SSD1",
+    "name": "Crucial BX500 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000MX500SSD1",
+    "match": "CT1000MX500SSD1",
+    "name": "Crucial MX500 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000MX500SSD4",
+    "match": "CT1000MX500SSD4",
+    "name": "Crucial MX500 M.2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000P1SSD8",
+    "match": "CT1000P1SSD8",
+    "name": "Crucial P1 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000P2SSD8",
+    "match": "CT1000P2SSD8",
+    "name": "Crucial P2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000P5PSSD8",
+    "match": "CT1000P5PSSD8",
+    "name": "Crucial P5 Plus 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1000P5SSD8",
+    "match": "CT1000P5SSD8",
+    "name": "Crucial P5 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1050MX300SSD1",
+    "match": "CT1050MX300SSD1",
+    "name": "Crucial MX300 1.05TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT1050MX300SSD4",
+    "match": "CT1050MX300SSD4",
+    "name": "Crucial MX300 M.2 1.05TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT120BX500SSD1",
+    "match": "CT120BX500SSD1",
+    "name": "Crucial BX500 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT2000BX500SSD1",
+    "match": "CT2000BX500SSD1",
+    "name": "Crucial BX500 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT2000MX500SSD1",
+    "match": "CT2000MX500SSD1",
+    "name": "Crucial MX500 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT2000P5PSSD8",
+    "match": "CT2000P5PSSD8",
+    "name": "Crucial P5 Plus 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT2000P5SSD8",
+    "match": "CT2000P5SSD8",
+    "name": "Crucial P5 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT2050MX300SSD1",
+    "match": "CT2050MX300SSD1",
+    "name": "Crucial MX300 2.05TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT240BX500SSD1",
+    "match": "CT240BX500SSD1",
+    "name": "Crucial BX500 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT250MX500SSD1",
+    "match": "CT250MX500SSD1",
+    "name": "Crucial MX500 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT250MX500SSD4",
+    "match": "CT250MX500SSD4",
+    "name": "Crucial MX500 M.2 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT250P2SSD8",
+    "match": "CT250P2SSD8",
+    "name": "Crucial P2 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT250P5SSD8",
+    "match": "CT250P5SSD8",
+    "name": "Crucial P5 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT275MX300SSD1",
+    "match": "CT275MX300SSD1",
+    "name": "Crucial MX300 275GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT275MX300SSD4",
+    "match": "CT275MX300SSD4",
+    "name": "Crucial MX300 M.2 275GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT480BX500SSD1",
+    "match": "CT480BX500SSD1",
+    "name": "Crucial BX500 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500MX500SSD1",
+    "match": "CT500MX500SSD1",
+    "name": "Crucial MX500 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500MX500SSD4",
+    "match": "CT500MX500SSD4",
+    "name": "Crucial MX500 M.2 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500P1SSD8",
+    "match": "CT500P1SSD8",
+    "name": "Crucial P1 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500P2SSD8",
+    "match": "CT500P2SSD8",
+    "name": "Crucial P2 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500P5PSSD8",
+    "match": "CT500P5PSSD8",
+    "name": "Crucial P5 Plus 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT500P5SSD8",
+    "match": "CT500P5SSD8",
+    "name": "Crucial P5 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT525MX300SSD1",
+    "match": "CT525MX300SSD1",
+    "name": "Crucial MX300 525GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "CT525MX300SSD4",
+    "match": "CT525MX300SSD4",
+    "name": "Crucial MX300 M.2 525GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "DT01ACA100",
+    "match": "DT01ACA100",
+    "name": "Toshiba DT01ACA 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "GP-ASM2NE2256GTTDR",
+    "match": "GPASM2NE2256GTTDR",
+    "name": "Gigabyte Aorus 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-ASM2NE2512GTTDR",
+    "match": "GPASM2NE2512GTTDR",
+    "name": "Gigabyte Aorus 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-ASM2NE6100TTTD",
+    "match": "GPASM2NE6100TTTD",
+    "name": "Gigabyte Aorus 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-ASM2NE6200TTTD",
+    "match": "GPASM2NE6200TTTD",
+    "name": "Gigabyte Aorus 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSM2NE3512GNTD",
+    "match": "GPGSM2NE3512GNTD",
+    "name": "Gigabyte M.2 NVMe 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSTFS30256GTTD",
+    "match": "GPGSTFS30256GTTD",
+    "name": "Gigabyte UD Pro 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSTFS30512GTTD",
+    "match": "GPGSTFS30512GTTD",
+    "name": "Gigabyte UD Pro 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSTFS31120GNTD",
+    "match": "GPGSTFS31120GNTD",
+    "name": "Gigabyte SSD 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSTFS31240GNTD",
+    "match": "GPGSTFS31240GNTD",
+    "name": "Gigabyte SSD 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "GP-GSTFS31480GNTD",
+    "match": "GPGSTFS31480GNTD",
+    "name": "Gigabyte SSD 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "HDWD110EZSTA",
+    "match": "HDWD110",
+    "name": "Toshiba P300 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "M280CS3140-4TB-RB",
+    "match": "M280CS31404TBRB",
+    "name": "PNY CS3140 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MEMPEK1W016GAXT",
+    "match": "MEMPEK1W016GA",
+    "name": "Intel Optane Memory 16GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MEMPEK1W032GAXT",
+    "match": "MEMPEK1W032GA",
+    "name": "Intel Optane Memory 32GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-76E1T0B/EU",
+    "match": "MZ76E1T0B",
+    "name": "Samsung 860 EVO 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-76E500B/EU",
+    "match": "MZ76E500B",
+    "name": "Samsung 860 EVO 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-76P2T0B/EU",
+    "match": "MZ76P2T0B",
+    "name": "Samsung 860 PRO 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-77Q8T0BW",
+    "match": "MZ77Q8T0BW",
+    "name": "Samsung 870 QVO 8TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6E1T0BW",
+    "match": "MZV6E1T0BW",
+    "name": "Samsung 960 EVO 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6E250BW",
+    "match": "MZV6E250BW",
+    "name": "Samsung 960 EVO 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6E500BW",
+    "match": "MZV6E500BW",
+    "name": "Samsung 960 EVO 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6P1T0BW",
+    "match": "MZV6P1T0BW",
+    "name": "Samsung 960 PRO 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6P2T0BW",
+    "match": "MZV6P2T0BW",
+    "name": "Samsung 960 PRO 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V6P512BW",
+    "match": "MZV6P512BW",
+    "name": "Samsung 960 PRO 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7E1T0BW",
+    "match": "MZV7E1T0BW",
+    "name": "Samsung 970 EVO 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7E250BW",
+    "match": "MZV7E250BW",
+    "name": "Samsung 970 EVO 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7E2T0BW",
+    "match": "MZV7E2T0BW",
+    "name": "Samsung 970 EVO 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7E500BW",
+    "match": "MZV7E500BW",
+    "name": "Samsung 970 EVO 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7P1T0BW",
+    "match": "MZV7P1T0BW",
+    "name": "Samsung 970 PRO 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7P512BW",
+    "match": "MZV7P512BW",
+    "name": "Samsung 970 PRO 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7S1T0BW",
+    "match": "MZV7S1T0BW",
+    "name": "Samsung 970 EVO Plus 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7S250BW",
+    "match": "MZV7S250BW",
+    "name": "Samsung 970 EVO Plus 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7S2T0BW",
+    "match": "MZV7S2T0BW",
+    "name": "Samsung 970 EVO Plus 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZ-V7S500BW",
+    "match": "MZV7S500BW",
+    "name": "Samsung 970 EVO Plus 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "MZVLB256HAHQ",
+    "match": "MZVLB256HAHQ",
+    "name": "Samsung PM981 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "PBU120GS25SSDR",
+    "match": "PBU120GS25SSDR",
+    "name": "Patriot Burst 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "PBU240GS25SSDR",
+    "match": "PBU240GS25SSDR",
+    "name": "Patriot Burst 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "RVD400-M22280-1T",
+    "match": "RVD400M222801T",
+    "name": "Toshiba OCZ RD400 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SA1000M8/240G",
+    "match": "SA1000M8240G",
+    "name": "Kingston A1000 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SA400S37/120G",
+    "match": "SA400S37120G",
+    "name": "Kingston A400 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SA400S37/240G",
+    "match": "SA400S37240G",
+    "name": "Kingston A400 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SA400S37/480G",
+    "match": "SA400S37480G",
+    "name": "Kingston A400 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SA400S37/960G",
+    "match": "SA400S37960G",
+    "name": "Kingston A400 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SB-ROCKET-1TB",
+    "match": "SBROCKET1TB",
+    "name": "Sabrent Rocket 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SB-ROCKET-256",
+    "match": "SBROCKET256",
+    "name": "Sabrent Rocket 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SB-ROCKET-512",
+    "match": "SBROCKET512",
+    "name": "Sabrent Rocket 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDA-120G-G26",
+    "match": "SDSSDA120GG26",
+    "name": "SanDisk Plus 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDA-240G-G26",
+    "match": "SDSSDA240GG26",
+    "name": "SanDisk Plus 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDA-480G-G26",
+    "match": "SDSSDA480GG26",
+    "name": "SanDisk Plus 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDA-960G-G26",
+    "match": "SDSSDA960GG26",
+    "name": "SanDisk Plus 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDHII-240G-G25",
+    "match": "SDSSDHII240GG25",
+    "name": "SanDisk Ultra II 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDHII-480G-G25",
+    "match": "SDSSDHII480GG25",
+    "name": "SanDisk Ultra II 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SDSSDHII-960G-G25",
+    "match": "SDSSDHII960GG25",
+    "name": "SanDisk Ultra II 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SEDC400S37/960G",
+    "match": "SEDC400S37960G",
+    "name": "Kingston DC400 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SHSS37A/960G",
+    "match": "SHSS37A960G",
+    "name": "HyperX Savage 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SM2280S3G2/480G",
+    "match": "SM2280S3G2480G",
+    "name": "Kingston SSDNow M.2 2280 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SNVS/1000G",
+    "match": "SNVS1000G",
+    "name": "Kingston NV1 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SNVS/2000G",
+    "match": "SNVS2000G",
+    "name": "Kingston NV1 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SNVS/250G",
+    "match": "SNVS250G",
+    "name": "Kingston NV1 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SNVS/500G",
+    "match": "SNVS500G",
+    "name": "Kingston NV1 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPE21D280GASM",
+    "match": "SSDPE21D280GA",
+    "name": "Intel Optane 900P 280GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPED1D480GAX1",
+    "match": "SSDPED1D480GA",
+    "name": "Intel Optane 900P 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEK1W060GA01",
+    "match": "SSDPEK1W060GA01",
+    "name": "Intel Optane 800P 58GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEK1W120GA01",
+    "match": "SSDPEK1W120GA01",
+    "name": "Intel Optane 800P 118GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKF010T7X1",
+    "match": "SSDPEKKF010T7",
+    "name": "Intel Pro 6000P 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKF256G7X1",
+    "match": "SSDPEKKF256G7",
+    "name": "Intel Pro 6000P 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKW010T8X1",
+    "match": "SSDPEKKW010T8",
+    "name": "Intel 760p 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKW020T8X1",
+    "match": "SSDPEKKW020T8",
+    "name": "Intel 760p 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKW128G8XT",
+    "match": "SSDPEKKW128G8",
+    "name": "Intel 760p 128GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKW256G8XT",
+    "match": "SSDPEKKW256G8",
+    "name": "Intel 760p 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKKW512G8XT",
+    "match": "SSDPEKKW512G8",
+    "name": "Intel 760p 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKNW010T8X1",
+    "match": "SSDPEKNW010T8",
+    "name": "Intel 660p 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKNW020T8X1",
+    "match": "SSDPEKNW020T8",
+    "name": "Intel 660p 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDPEKNW512G8X1",
+    "match": "SSDPEKNW512G8",
+    "name": "Intel 660p 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SSDSCKKW010X6X1",
+    "match": "SSDSCKKW010X6",
+    "name": "Intel 540s M.2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ST10000NE0004",
+    "match": "ST10000NE0004",
+    "name": "Seagate IronWolf Pro 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST10000VN0004",
+    "match": "ST10000VN0004",
+    "name": "Seagate IronWolf 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST10000VX0004",
+    "match": "ST10000VX0004",
+    "name": "Seagate SkyHawk 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000DM003",
+    "match": "ST1000DM003",
+    "name": "Seagate BarraCuda 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000DM010",
+    "match": "ST1000DM010",
+    "name": "Seagate BarraCuda 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000DX002",
+    "match": "ST1000DX002",
+    "name": "Seagate FireCuda SSHD 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000LM048",
+    "match": "ST1000LM048",
+    "name": "Seagate BarraCuda 2.5\" 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000LM049",
+    "match": "ST1000LM049",
+    "name": "Seagate BarraCuda Pro 2.5\" 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000NM0008",
+    "match": "ST1000NM0008",
+    "name": "Seagate Enterprise Capacity 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000NM0055",
+    "match": "ST1000NM0055",
+    "name": "Seagate Enterprise Capacity 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000NX0313",
+    "match": "ST1000NX0313",
+    "name": "Seagate Enterprise Capacity 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000VN002",
+    "match": "ST1000VN002",
+    "name": "Seagate IronWolf 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST1000VX005",
+    "match": "ST1000VX005",
+    "name": "Seagate SkyHawk 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST12000DM0007",
+    "match": "ST12000DM0007",
+    "name": "Seagate BarraCuda Pro 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST12000NE0007",
+    "match": "ST12000NE0007",
+    "name": "Seagate IronWolf Pro 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST12000NE0008",
+    "match": "ST12000NE0008",
+    "name": "Seagate IronWolf Pro 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST12000VN0007",
+    "match": "ST12000VN0007",
+    "name": "Seagate IronWolf 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST14000DM001",
+    "match": "ST14000DM001",
+    "name": "Seagate BarraCuda Pro 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST14000VN0008",
+    "match": "ST14000VN0008",
+    "name": "Seagate IronWolf 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000DM001",
+    "match": "ST2000DM001",
+    "name": "Seagate BarraCuda 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000DM006",
+    "match": "ST2000DM006",
+    "name": "Seagate BarraCuda 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000DM008",
+    "match": "ST2000DM008",
+    "name": "Seagate BarraCuda 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000LX001",
+    "match": "ST2000LX001",
+    "name": "Seagate FireCuda SSHD 2.5\" 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000NE0025",
+    "match": "ST2000NE0025",
+    "name": "Seagate IronWolf Pro 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000NM0008",
+    "match": "ST2000NM0008",
+    "name": "Seagate Exos 7E2 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000NM0055",
+    "match": "ST2000NM0055",
+    "name": "Seagate Enterprise Capacity 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000NX0253",
+    "match": "ST2000NX0253",
+    "name": "Seagate Enterprise Capacity 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000VN004",
+    "match": "ST2000VN004",
+    "name": "Seagate IronWolf 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000VX000",
+    "match": "ST2000VX000",
+    "name": "Seagate SkyHawk 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST2000VX008",
+    "match": "ST2000VX008",
+    "name": "Seagate SkyHawk 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST3000DM007",
+    "match": "ST3000DM007",
+    "name": "Seagate BarraCuda 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST3000DM008",
+    "match": "ST3000DM008",
+    "name": "Seagate BarraCuda 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST3000VN007",
+    "match": "ST3000VN007",
+    "name": "Seagate IronWolf 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000DM004",
+    "match": "ST4000DM004",
+    "name": "Seagate BarraCuda 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000NE0025",
+    "match": "ST4000NE0025",
+    "name": "Seagate IronWolf Pro 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000NM002A",
+    "match": "ST4000NM002A",
+    "name": "Seagate Exos 7E8 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000NM0115",
+    "match": "ST4000NM0115",
+    "name": "Seagate Enterprise Capacity 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000VN008",
+    "match": "ST4000VN008",
+    "name": "Seagate IronWolf 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000VX000",
+    "match": "ST4000VX000",
+    "name": "Seagate SkyHawk 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST4000VX007",
+    "match": "ST4000VX007",
+    "name": "Seagate SkyHawk 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST5000LM000",
+    "match": "ST5000LM000",
+    "name": "Seagate BarraCuda 2.5\" 5TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000DM001",
+    "match": "ST6000DM001",
+    "name": "Seagate Desktop HDD 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000DM003",
+    "match": "ST6000DM003",
+    "name": "Seagate BarraCuda 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000NE0023",
+    "match": "ST6000NE0023",
+    "name": "Seagate IronWolf Pro 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000NM0115",
+    "match": "ST6000NM0115",
+    "name": "Seagate Exos 7E8 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000VN0033",
+    "match": "ST6000VN0033",
+    "name": "Seagate IronWolf 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000VN0041",
+    "match": "ST6000VN0041",
+    "name": "Seagate IronWolf 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST6000VX0023",
+    "match": "ST6000VX0023",
+    "name": "Seagate SkyHawk 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000DM0004",
+    "match": "ST8000DM0004",
+    "name": "Seagate BarraCuda Pro 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000DM004",
+    "match": "ST8000DM004",
+    "name": "Seagate BarraCuda 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000NE0004",
+    "match": "ST8000NE0004",
+    "name": "Seagate IronWolf Pro 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000NM0055",
+    "match": "ST8000NM0055",
+    "name": "Seagate Exos 7E8 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000VN0022",
+    "match": "ST8000VN0022",
+    "name": "Seagate IronWolf 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "ST8000VN004",
+    "match": "ST8000VN004",
+    "name": "Seagate IronWolf 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "SUV400S3B7A/120G",
+    "match": "SUV400S3B7A120G",
+    "name": "Kingston UV400 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500/120G",
+    "match": "SUV500120G",
+    "name": "Kingston UV500 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500/240G",
+    "match": "SUV500240G",
+    "name": "Kingston UV500 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500/480G",
+    "match": "SUV500480G",
+    "name": "Kingston UV500 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500/960G",
+    "match": "SUV500960G",
+    "name": "Kingston UV500 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500M8/120G",
+    "match": "SUV500M8120G",
+    "name": "Kingston UV500 M.2 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500M8/240G",
+    "match": "SUV500M8240G",
+    "name": "Kingston UV500 M.2 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SUV500M8/480G",
+    "match": "SUV500M8480G",
+    "name": "Kingston UV500 M.2 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "SV300S37A/480G",
+    "match": "SV300S37A480G",
+    "name": "Kingston V300 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "TR200 25SAT3-240G",
+    "match": "TR20025SAT3240G",
+    "name": "Toshiba TR200 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "TR200 25SAT3-480G",
+    "match": "TR20025SAT3480G",
+    "name": "Toshiba TR200 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "TR200 25SAT3-960G",
+    "match": "TR20025SAT3960G",
+    "name": "Toshiba TR200 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "TRN150-25SAT3-960G",
+    "match": "TRN15025SAT3960G",
+    "name": "OCZ TR150 960GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "TS128GMTS400",
+    "match": "TS128GMTS400",
+    "name": "Transcend MTS400 M.2 2242 128GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "VX500-25SAT3-128G",
+    "match": "VX50025SAT3128G",
+    "name": "Toshiba OCZ VX500 128GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WD1003FZEX",
+    "match": "WD1003FZEX",
+    "name": "WD Black 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD1005FBYZ",
+    "match": "WD1005FBYZ",
+    "name": "WD Gold 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD100EFAX",
+    "match": "WD100EFAX",
+    "name": "WD Red 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD100PURZ",
+    "match": "WD100PURZ",
+    "name": "WD Purple 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD101EFAX",
+    "match": "WD101EFAX",
+    "name": "WD Red 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD101EFBX",
+    "match": "WD101EFBX",
+    "name": "WD Red Plus 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD101KFBX",
+    "match": "WD101KFBX",
+    "name": "WD Red Pro 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD101KRYZ",
+    "match": "WD101KRYZ",
+    "name": "WD Gold 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD102KFBX",
+    "match": "WD102KFBX",
+    "name": "WD Red Pro 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD102KRYZ",
+    "match": "WD102KRYZ",
+    "name": "WD Gold 10TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10EFRX",
+    "match": "WD10EFRX",
+    "name": "WD Red 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10EZEX",
+    "match": "WD10EZEX",
+    "name": "WD Blue 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10EZRZ",
+    "match": "WD10EZRZ",
+    "name": "WD Blue 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10JFCX",
+    "match": "WD10JFCX",
+    "name": "WD Red 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10JPLX",
+    "match": "WD10JPLX",
+    "name": "WD Black 2.5\" 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10JPVX",
+    "match": "WD10JPVX",
+    "name": "WD Blue 2.5\" 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD10SPZX",
+    "match": "WD10SPZX",
+    "name": "WD Blue Mobile 2.5\" 1TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD120EFAX",
+    "match": "WD120EFAX",
+    "name": "WD Red 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD120EFBX",
+    "match": "WD120EFBX",
+    "name": "WD Red Plus 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD121KFBX",
+    "match": "WD121KFBX",
+    "name": "WD Red Pro 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD121KRYZ",
+    "match": "WD121KRYZ",
+    "name": "WD Gold 12TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD140EFFX",
+    "match": "WD140EFFX",
+    "name": "WD Red 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD140EFGX",
+    "match": "WD140EFGX",
+    "name": "WD Red Plus 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD141KFGX",
+    "match": "WD141KFGX",
+    "name": "WD Red Pro 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD141KRYZ",
+    "match": "WD141KRYZ",
+    "name": "WD Gold 14TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD161KFGX",
+    "match": "WD161KFGX",
+    "name": "WD Red Pro 16TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD181KFGX",
+    "match": "WD181KFGX",
+    "name": "WD Red Pro 18TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD2002FFSX",
+    "match": "WD2002FFSX",
+    "name": "WD Red Pro 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD2003FZEX",
+    "match": "WD2003FZEX",
+    "name": "WD Black 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD2005FBYZ",
+    "match": "WD2005FBYZ",
+    "name": "WD Gold 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20EFAX",
+    "match": "WD20EFAX",
+    "name": "WD Red 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20EFRX",
+    "match": "WD20EFRX",
+    "name": "WD Red 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20EFZX",
+    "match": "WD20EFZX",
+    "name": "WD Red Plus 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20EZAZ",
+    "match": "WD20EZAZ",
+    "name": "WD Blue 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20EZRZ",
+    "match": "WD20EZRZ",
+    "name": "WD Blue 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20PURX",
+    "match": "WD20PURX",
+    "name": "WD Purple 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD20SPZX",
+    "match": "WD20SPZX",
+    "name": "WD Blue Mobile 2.5\" 2TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD30EFAX",
+    "match": "WD30EFAX",
+    "name": "WD Red 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD30EFRX",
+    "match": "WD30EFRX",
+    "name": "WD Red 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD30EFZX",
+    "match": "WD30EFZX",
+    "name": "WD Red Plus 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD30EZRZ",
+    "match": "WD30EZRZ",
+    "name": "WD Blue 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD30PURX",
+    "match": "WD30PURX",
+    "name": "WD Purple 3TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4002FFWX",
+    "match": "WD4002FFWX",
+    "name": "WD Red Pro 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4002FYYZ",
+    "match": "WD4002FYYZ",
+    "name": "WD Gold 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4003FFBX",
+    "match": "WD4003FFBX",
+    "name": "WD Red Pro 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4003FRYZ",
+    "match": "WD4003FRYZ",
+    "name": "WD Gold 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4004FZWX",
+    "match": "WD4004FZWX",
+    "name": "WD Black 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4005FZBX",
+    "match": "WD4005FZBX",
+    "name": "WD Black 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD40EFAX",
+    "match": "WD40EFAX",
+    "name": "WD Red 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD40EFRX",
+    "match": "WD40EFRX",
+    "name": "WD Red 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD40EFZX",
+    "match": "WD40EFZX",
+    "name": "WD Red Plus 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD40EZRZ",
+    "match": "WD40EZRZ",
+    "name": "WD Blue 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD40PURX",
+    "match": "WD40PURX",
+    "name": "WD Purple 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD4NPURX",
+    "match": "WD4NPURX",
+    "name": "WD Purple 4TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD50EZRZ",
+    "match": "WD50EZRZ",
+    "name": "WD Blue 5TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6001FZWX",
+    "match": "WD6001FZWX",
+    "name": "WD Black 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6002FFWX",
+    "match": "WD6002FFWX",
+    "name": "WD Red Pro 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6002FRYZ",
+    "match": "WD6002FRYZ",
+    "name": "WD Gold 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6003FFBX",
+    "match": "WD6003FFBX",
+    "name": "WD Red Pro 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6003FRYZ",
+    "match": "WD6003FRYZ",
+    "name": "WD Gold 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD6003FZBX",
+    "match": "WD6003FZBX",
+    "name": "WD Black 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60EFAX",
+    "match": "WD60EFAX",
+    "name": "WD Red 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60EFRX",
+    "match": "WD60EFRX",
+    "name": "WD Red 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60EFZX",
+    "match": "WD60EFZX",
+    "name": "WD Red Plus 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60EZAZ",
+    "match": "WD60EZAZ",
+    "name": "WD Blue 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60EZRZ",
+    "match": "WD60EZRZ",
+    "name": "WD Blue 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD60PURX",
+    "match": "WD60PURX",
+    "name": "WD Purple 6TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD8001FFWX",
+    "match": "WD8001FFWX",
+    "name": "WD Red Pro 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD8002FRYZ",
+    "match": "WD8002FRYZ",
+    "name": "WD Gold 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD8003FFBX",
+    "match": "WD8003FFBX",
+    "name": "WD Red Pro 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD8003FRYZ",
+    "match": "WD8003FRYZ",
+    "name": "WD Gold 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD8004FRYZ",
+    "match": "WD8004FRYZ",
+    "name": "WD Gold 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD80EFAX",
+    "match": "WD80EFAX",
+    "name": "WD Red 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD80EFBX",
+    "match": "WD80EFBX",
+    "name": "WD Red Plus 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD80EFZX",
+    "match": "WD80EFZX",
+    "name": "WD Red 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD80EFZZ",
+    "match": "WD80EFZZ",
+    "name": "WD Red Plus 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD80PUZX",
+    "match": "WD80PUZX",
+    "name": "WD Purple 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WD84PURZ",
+    "match": "WD84PURZ",
+    "name": "WD Purple 8TB",
+    "type": "HDD"
+  },
+  {
+    "mpn": "WDS100T1X0E",
+    "match": "WDS100T1X0E",
+    "name": "WD Black SN850 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T1XHE",
+    "match": "WDS100T1XHE",
+    "name": "WD Black SN850 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T2B0A",
+    "match": "WDS100T2B0A",
+    "name": "WD Blue 3D 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T2B0B",
+    "match": "WDS100T2B0B",
+    "name": "WD Blue 3D M.2 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T2B0C",
+    "match": "WDS100T2B0C",
+    "name": "WD Blue SN550 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T3X0C",
+    "match": "WDS100T3X0C",
+    "name": "WD Black SN750 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS100T3XHC",
+    "match": "WDS100T3XHC",
+    "name": "WD Black SN750 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS120G2G0A",
+    "match": "WDS120G2G0A",
+    "name": "WD Green 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS120G2G0B",
+    "match": "WDS120G2G0B",
+    "name": "WD Green M.2 120GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T1X0E",
+    "match": "WDS200T1X0E",
+    "name": "WD Black SN850 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T1XHE",
+    "match": "WDS200T1XHE",
+    "name": "WD Black SN850 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T2B0A",
+    "match": "WDS200T2B0A",
+    "name": "WD Blue 3D 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T2B0B",
+    "match": "WDS200T2B0B",
+    "name": "WD Blue 3D M.2 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T2B0C",
+    "match": "WDS200T2B0C",
+    "name": "WD Blue SN550 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T3X0C",
+    "match": "WDS200T3X0C",
+    "name": "WD Black SN750 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS200T3XHC",
+    "match": "WDS200T3XHC",
+    "name": "WD Black SN750 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS240G2G0A",
+    "match": "WDS240G2G0A",
+    "name": "WD Green 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS240G2G0B",
+    "match": "WDS240G2G0B",
+    "name": "WD Green M.2 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G1B0A",
+    "match": "WDS250G1B0A",
+    "name": "WD Blue 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G2B0A",
+    "match": "WDS250G2B0A",
+    "name": "WD Blue 3D 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G2B0B",
+    "match": "WDS250G2B0B",
+    "name": "WD Blue 3D M.2 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G2B0C",
+    "match": "WDS250G2B0C",
+    "name": "WD Blue SN550 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G2X0C",
+    "match": "WDS250G2X0C",
+    "name": "WD Black NVMe 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS250G3X0C",
+    "match": "WDS250G3X0C",
+    "name": "WD Black SN750 250GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS256G1X0C",
+    "match": "WDS256G1X0C",
+    "name": "WD Black NVMe 256GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G1B0A",
+    "match": "WDS500G1B0A",
+    "name": "WD Blue 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G1X0E",
+    "match": "WDS500G1X0E",
+    "name": "WD Black SN850 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G2B0A",
+    "match": "WDS500G2B0A",
+    "name": "WD Blue 3D 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G2B0B",
+    "match": "WDS500G2B0B",
+    "name": "WD Blue 3D M.2 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G2B0C",
+    "match": "WDS500G2B0C",
+    "name": "WD Blue SN550 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G2X0C",
+    "match": "WDS500G2X0C",
+    "name": "WD Black NVMe 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G3X0C",
+    "match": "WDS500G3X0C",
+    "name": "WD Black SN750 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS500G3XHC",
+    "match": "WDS500G3XHC",
+    "name": "WD Black SN750 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "WDS512G1X0C",
+    "match": "WDS512G1X0C",
+    "name": "WD Black NVMe 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP1000GM3A013",
+    "match": "ZP1000GM3A013",
+    "name": "Seagate FireCuda 530 1TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP2000GM3A002",
+    "match": "ZP2000GM3A002",
+    "name": "Seagate FireCuda 520 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP2000GM3A013",
+    "match": "ZP2000GM3A013",
+    "name": "Seagate FireCuda 530 2TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP240NM30011",
+    "match": "ZP240NM30011",
+    "name": "Seagate IronWolf 110 240GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP4000GM3A013",
+    "match": "ZP4000GM3A013",
+    "name": "Seagate FireCuda 530 4TB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP480NM30011",
+    "match": "ZP480NM30011",
+    "name": "Seagate IronWolf 110 480GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP500GM3A002",
+    "match": "ZP500GM3A002",
+    "name": "Seagate FireCuda 520 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP500GM3A013",
+    "match": "ZP500GM3A013",
+    "name": "Seagate FireCuda 530 500GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP512CM30041",
+    "match": "ZP512CM30041",
+    "name": "Seagate BarraCuda 510 512GB",
+    "type": "SSD"
+  },
+  {
+    "mpn": "ZP960NM30011",
+    "match": "ZP960NM30011",
+    "name": "Seagate IronWolf 110 960GB",
+    "type": "SSD"
+  }
+]
