@@ -7,10 +7,10 @@ test('shows all cards and live values', async ({ page }) => {
   await expect(page.getByTestId('cpu-card')).toBeVisible();
   await expect(page.getByTestId('cpu-card')).toContainText('AMD Ryzen 9 5950X');
   await expect(page.getByTestId('gpu-card')).toBeVisible();
-  await expect(page.getByTestId('system-card')).toBeVisible();
-  await expect(page.getByTestId('system-temp')).toHaveCount(4);
-  await expect(page.getByTestId('system-card')).toContainText('Motherboard');
-  await expect(page.getByTestId('system-card')).toContainText('Drives');
+  await expect(page.getByTestId('board-card')).toContainText('Motherboard');
+  await expect(page.getByTestId('board-card').getByTestId('system-temp')).toHaveCount(3);
+  await expect(page.getByTestId('drives-card')).toContainText('Drives');
+  await expect(page.getByTestId('drives-card').getByTestId('system-temp')).toHaveCount(1);
   await expect(page.getByTestId('fan-tile')).toHaveCount(3);
 
   // Values come in over SignalR every second, so they must change.

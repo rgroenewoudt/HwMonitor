@@ -58,10 +58,15 @@
         </app-device-card>
       }
     }
-    @if (!visibility.isHidden('system')) {
-      <app-system-temps [temps]="s.systemTemps" data-testid="system-card">
-        <app-hide-button key="system" label="System temperatures" />
-      </app-system-temps>
+    @if (!visibility.isHidden('board')) {
+      <app-temps-card kind="Motherboard" [temps]="boardTemps()" emptyText="No motherboard temperatures found. Run as administrator." data-testid="board-card">
+        <app-hide-button key="board" label="Motherboard temperatures" />
+      </app-temps-card>
+    }
+    @if (!visibility.isHidden('drives')) {
+      <app-temps-card kind="Drives" [temps]="driveTemps()" emptyText="No drive temperatures found." data-testid="drives-card">
+        <app-hide-button key="drives" label="Drive temperatures" />
+      </app-temps-card>
     }
     @if (!visibility.isHidden('fans')) {
       <app-fans-card [fans]="s.fans" data-testid="fans-card">
@@ -69,7 +74,7 @@
       </app-fans-card>
     }
   } @else {
-    @for (i of [1, 2, 3, 4]; track i) {
+    @for (i of [1, 2, 3, 4, 5]; track i) {
       <div class="card skeleton" aria-hidden="true"></div>
     }
   }

@@ -7,21 +7,23 @@ interface Group {
   items: (TempReading & { level: string; percent: number })[];
 }
 
-/** Card with all other temperatures: motherboard, VRM, chipset, drives, coolers. */
+/** Card with temperatures that are not the CPU or GPU, e.g. the motherboard (VRM, chipset, coolers) or the drives. */
 @Component({
-  selector: 'app-system-temps',
+  selector: 'app-temps-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'card' },
   template: `
     <header class="card-head">
-      <span class="kind">System</span>
+      <span class="kind">{{ kind() }}</span>
       <h2 class="name">Temperatures</h2>
       <ng-content />
     </header>
 
     @for (group of groups(); track group.name) {
       <section>
-        <h3>{{ group.name }}</h3>
+        @if (groups().length > 1) {
+          <h3>{{ group.name }}</h3>
+        }
         <ul>
           @for (item of group.items; track item.id) {
             <li [attr.data-level]="item.level" data-testid="system-temp">
@@ -33,7 +35,7 @@ interface Group {
         </ul>
       </section>
     } @empty {
-      <p class="empty">No system temperatures found. Run as administrator.</p>
+      <p class="empty">{{ emptyText() }}</p>
     }
   `,
   styles: `
@@ -73,8 +75,10 @@ interface Group {
     .empty { margin: 0; color: var(--muted); }
   `,
 })
-export class SystemTemps {
+export class TempsCard {
+  readonly kind = input.required<string>();
   readonly temps = input.required<TempReading[]>();
+  readonly emptyText = input.required<string>();
 
   protected readonly groups = computed<Group[]>(() => {
     const groups = new Map<string, Group>();

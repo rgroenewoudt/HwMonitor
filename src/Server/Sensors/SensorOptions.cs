@@ -27,4 +27,7 @@ public sealed class SensorOptions
 
     /// <summary>Read AMD GPUs (and the game FPS) with AMD ADLX instead of LHM. Without an AMD driver it is skipped.</summary>
     public bool UseAdlx { get; set; } = true;
+
+    /// <summary>HWiNFO temperatures to leave out, by the name shown in the UI (e.g. "ITE IT8688E · Chipset").</summary>
+    public string[] HiddenTemps { get; set; } = [];
 }

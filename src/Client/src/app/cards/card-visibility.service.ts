@@ -4,7 +4,7 @@ const STORAGE_KEY = 'hwmonitor.hiddenCards';
 
 /**
  * Which cards the user has hidden. Saved in localStorage, so each browser (phone, desktop) has its own choice.
- * Keys: `cpu`, `gpu:<id>`, `system`, `fans`.
+ * Keys: `cpu`, `gpu:<id>`, `board`, `drives`, `fans`.
  */
 @Injectable({ providedIn: 'root' })
 export class CardVisibilityService {

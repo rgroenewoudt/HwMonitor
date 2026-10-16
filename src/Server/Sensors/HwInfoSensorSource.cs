@@ -111,6 +111,8 @@ public sealed partial class HwInfoSensorSource : IDisposable
                 r => repeatedFans.Contains(r.Label) ? $"{chip} · {r.Label}" : r.Label);
         }
 
+        systemTemps.RemoveAll(t => _options.HiddenTemps.Contains(t.Name, StringComparer.OrdinalIgnoreCase));
+
         var fps = sensors.SelectMany(s => s.Readings).Where(r => r.LabelOrig.StartsWith("Framerate", StringComparison.Ordinal)).ToList();
         return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, memory, Fps(fps), _status);
     }

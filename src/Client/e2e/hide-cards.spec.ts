@@ -12,7 +12,7 @@ test('hides a card and shows it again', async ({ page }) => {
 
   // Saved in localStorage, so it stays hidden after a reload.
   await page.reload();
-  await expect(page.getByTestId('system-card')).toBeVisible();
+  await expect(page.getByTestId('board-card')).toBeVisible();
   await expect(fans).toHaveCount(0);
 
   await hidden.getByRole('button', { name: 'Fans' }).click();
