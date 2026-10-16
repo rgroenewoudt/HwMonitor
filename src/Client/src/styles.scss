@@ -1,0 +1,98 @@
+:root {
+  color-scheme: dark;
+  --bg: #070a12;
+  --surface: rgb(255 255 255 / 0.045);
+  --surface-2: rgb(255 255 255 / 0.05);
+  --border: rgb(255 255 255 / 0.09);
+  --track: rgb(255 255 255 / 0.08);
+  --text: #eef2fb;
+  --muted: #8b93a7;
+  --accent: #5eb3ff;
+  --cool: #34d399;
+  --warm: #fbbf24;
+  --hot: #f43f5e;
+  --level-color: var(--accent);
+}
+
+[data-level='cool'] { --level-color: var(--cool); }
+[data-level='warm'] { --level-color: var(--warm); }
+[data-level='hot'] { --level-color: var(--hot); }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, rgb(94 179 255 / 0.14), transparent 60%),
+    radial-gradient(50rem 35rem at 110% 0%, rgb(168 85 247 / 0.12), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3 { margin: 0; }
+
+/* Shared card look for all dashboard cards. */
+.card {
+  position: relative;
+  min-width: 0;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.025));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  transition: box-shadow 0.6s ease, border-color 0.6s ease;
+
+  &[data-level]:not([data-level='none']) {
+    border-color: color-mix(in srgb, var(--level-color) 28%, var(--border));
+    box-shadow:
+      0 10px 30px rgb(0 0 0 / 0.35),
+      0 0 40px -12px color-mix(in srgb, var(--level-color) 55%, transparent);
+  }
+}
+
+.card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+
+  .kind {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Only the published exe asks for admin; dotnet run and the tests stay normal.
+         -p:RequireAdmin=false publishes an exe without it (to test the single exe without admin). -->
+    <ApplicationManifest Condition="'$(_IsPublishing)' == 'true' And '$(RequireAdmin)' != 'false'">app.manifest</ApplicationManifest>
+    <GenerateEmbeddedFilesManifest Condition="'$(Configuration)' == 'Release' Or Exists('wwwroot/index.html')">true</GenerateEmbeddedFilesManifest>
+    <ClientDir>$(MSBuildProjectDirectory)\..\Client\</ClientDir>
+  </PropertyGroup>
+
+  <!-- `dotnet publish -c Release` gives one self-contained exe (+ appsettings.json). -->
+  <PropertyGroup>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <!-- LibreHardwareMonitor and SignalR use reflection, so trimming is not safe. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+    <!-- Not hosted in IIS and no static web assets: keep the publish folder clean. -->
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+    <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.6" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.13" />
+  </ItemGroup>
+
+  <!-- The Angular app is embedded in the exe instead of copied next to it. -->
+  <ItemGroup>
+    <Content Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+    <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
+    <!-- When the client is built below, its files are added after the build (hashed names change). -->
+    <EmbeddedResource Include="wwwroot\**" Condition="'$(Configuration)' != 'Release' Or '$(SkipClientBuild)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Release builds first build the Angular app into wwwroot. Skip with -p:SkipClientBuild=true.
+       ng build only runs when a client file is newer than wwwroot\index.html. -->
+  <ItemGroup>
+    <ClientInput Include="$(ClientDir)src\**;$(ClientDir)public\**;$(ClientDir)*.json" />
+  </ItemGroup>
+
+  <Target Name="BuildClient" BeforeTargets="BeforeBuild"
+          Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'"
+          Inputs="@(ClientInput)" Outputs="wwwroot\index.html">
+    <Exec Command="npm ci" WorkingDirectory="$(ClientDir)" Condition="!Exists('$(ClientDir)node_modules')" />
+    <Exec Command="npx ng build --configuration production" WorkingDirectory="$(ClientDir)" />
+  </Target>
+
+  <!-- Separate target, so the files are also embedded when BuildClient was skipped as up to date. -->
+  <Target Name="EmbedClient" AfterTargets="BuildClient" BeforeTargets="BeforeBuild"
+          Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'">
+    <ItemGroup>
+      <EmbeddedResource Include="wwwroot\**" />
+    </ItemGroup>
+  </Target>
+
+</Project>

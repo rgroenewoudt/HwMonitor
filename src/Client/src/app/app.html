@@ -1,0 +1,46 @@
+<header class="top">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="3" y="3" width="26" height="26" rx="8" />
+      <path d="M8 18h4l2.5-6 3 10 2.5-6H24" />
+    </svg>
+    <div>
+      <h1>HwMonitor</h1>
+      <p class="updated">
+        @if (snapshot(); as s) {
+          Updated {{ s.timestamp | date: 'HH:mm:ss' }}
+        } @else {
+          Waiting for data…
+        }
+      </p>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-wake-lock-button />
+    <span class="badge" [attr.data-status]="status()" data-testid="status-badge" role="status">
+      <span class="dot"></span>{{ statusText() }}
+    </span>
+  </div>
+</header>
+
+@if (warning(); as message) {
+  <p class="warning" role="alert" data-testid="warning">{{ message }}</p>
+}
+
+<main class="grid">
+  @if (snapshot(); as s) {
+    @if (s.cpu; as cpu) {
+      <app-device-card kind="CPU" [device]="cpu" data-testid="cpu-card" />
+    }
+    @for (gpu of s.gpus; track gpu.id) {
+      <app-device-card kind="GPU" [device]="gpu" data-testid="gpu-card" />
+    }
+    <app-system-temps [temps]="s.systemTemps" data-testid="system-card" />
+    <app-fans-card [fans]="s.fans" data-testid="fans-card" />
+  } @else {
+    @for (i of [1, 2, 3, 4]; track i) {
+      <div class="card skeleton" aria-hidden="true"></div>
+    }
+  }
+</main>
