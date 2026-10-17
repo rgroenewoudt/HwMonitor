@@ -25,6 +25,9 @@ builder.Services.AddSingleton<ISensorSource>(sp => sp.GetRequiredService<IOption
 builder.Services.AddSingleton<IForegroundApp>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value.UseFake
     ? new FakeForegroundApp()
     : ActivatorUtilities.CreateInstance<ForegroundApp>(sp));
+builder.Services.AddSingleton<IFrameMonitor>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value.UseFake
+    ? ActivatorUtilities.CreateInstance<FakeFrameMonitor>(sp)
+    : ActivatorUtilities.CreateInstance<EtwFrameMonitor>(sp));
 builder.Services.AddSingleton<SensorPoller>();
 builder.Services.AddHostedService(sp => sp.GetRequiredService<SensorPoller>());
 builder.Services.AddSingleton<WindowsFirewall>();

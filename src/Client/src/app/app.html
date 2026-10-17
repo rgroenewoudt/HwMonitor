@@ -45,7 +45,7 @@
   @if (snapshot(); as s) {
     @if (s.fps; as fps) {
       @if (!visibility.isHidden('game')) {
-        <app-game-card [fps]="fps" [game]="s.game" data-testid="game-card">
+        <app-game-card [fps]="fps" [fpsLow]="s.fpsLow" [game]="s.game" data-testid="game-card">
           <app-hide-button key="game" label="Game" />
         </app-game-card>
       }

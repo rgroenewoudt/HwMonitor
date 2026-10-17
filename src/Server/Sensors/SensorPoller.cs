@@ -10,6 +10,7 @@ public sealed class SensorHub : Hub;
 public sealed class SensorPoller(
     ISensorSource source,
     IForegroundApp foreground,
+    IFrameMonitor frames,
     IHubContext<SensorHub> hub,
     IOptions<SensorOptions> options,
     ILogger<SensorPoller> logger) : BackgroundService
@@ -23,15 +24,24 @@ public sealed class SensorPoller(
         using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(Math.Max(250, options.Value.PollIntervalMs)));
         var failing = false;
         var fps = new FpsFilter();
-        var game = new GameTracker(foreground);
+        var game = new GameTracker();
         do
         {
             SensorSnapshot snapshot;
             try
             {
                 snapshot = source.Read();
-                var filtered = fps.Add(snapshot.Fps);
-                snapshot = snapshot with { Fps = filtered, Game = game.Update(filtered) };
+                // ETW frames of the app in front first; the source's FPS when ETW does not run or sees no frames
+                // (some anti-cheat games block it).
+                var app = foreground.Read();
+                var stats = frames.IsRunning && app is not null ? frames.Read(app.Pid) : null;
+                var filtered = fps.Add(stats?.Fps ?? snapshot.Fps);
+                snapshot = snapshot with
+                {
+                    Fps = filtered,
+                    FpsLow = filtered is null ? null : stats?.LowFps,
+                    Game = game.Update(filtered, app),
+                };
                 if (failing)
                     logger.LogInformation("Reading sensors works again");
                 failing = false;

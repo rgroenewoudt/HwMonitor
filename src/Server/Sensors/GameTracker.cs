@@ -7,7 +7,7 @@ namespace HwMonitor.Sensors;
 /// the old game for a poll or two (<see cref="FpsFilter"/>), so a new app is only shown after it was in front for 2 polls.
 /// The desktop/taskbar (no app) keeps the last game.
 /// </summary>
-public sealed class GameTracker(IForegroundApp foreground)
+public sealed class GameTracker
 {
     private const int SwitchAfterPolls = 2;
 
@@ -15,7 +15,7 @@ public sealed class GameTracker(IForegroundApp foreground)
     private ForegroundAppInfo? _next;
     private int _nextCount;
 
-    public GameInfo? Update(double? fps)
+    public GameInfo? Update(double? fps, ForegroundAppInfo? app)
     {
         if (fps is null)
         {
@@ -23,7 +23,6 @@ public sealed class GameTracker(IForegroundApp foreground)
             return null;
         }
 
-        var app = foreground.Read();
         if (app is null || app.Path == _game?.Path)
             _next = null;
         else if (_game is null)

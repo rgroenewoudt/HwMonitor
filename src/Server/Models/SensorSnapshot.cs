@@ -10,7 +10,10 @@ public sealed record SensorSnapshot(
     MemoryReading? Memory,
     double? Fps,
     SourceStatus Status,
-    GameInfo? Game = null);
+    GameInfo? Game = null,
+    double? FpsLow = null);
+
+// FpsLow is the 1% low FPS (only when frames are counted with ETW).
 
 /// <summary>The app in front, which the FPS is for. The icon is a PNG at /api/game-icon/{IconId}.</summary>
 public sealed record GameInfo(string Name, string? IconId);

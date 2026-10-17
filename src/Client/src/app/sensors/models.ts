@@ -11,6 +11,8 @@ export interface SensorSnapshot {
   status: SourceStatus;
   /** The app in front, which `fps` is for; null when there is no FPS or the app is unknown. */
   game: GameInfo | null;
+  /** 1% low FPS; only when frames are counted with ETW. */
+  fpsLow: number | null;
 }
 
 export interface GameInfo {

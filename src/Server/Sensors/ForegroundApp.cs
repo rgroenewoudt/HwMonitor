@@ -7,8 +7,11 @@ using System.Text;
 
 namespace HwMonitor.Sensors;
 
-/// <summary>The app in front. <see cref="IconId"/> is null when the exe has no readable icon.</summary>
-public sealed record ForegroundAppInfo(string Path, string Name, string? IconId);
+/// <summary>
+/// The app in front. <see cref="IconId"/> is null when the exe has no readable icon. Cached by path, so
+/// <see cref="Pid"/> is set again on every read (a restarted game gets a new one).
+/// </summary>
+public sealed record ForegroundAppInfo(string Path, string Name, string? IconId, int Pid = 0);
 
 /// <summary>Finds the app in front (the one HWiNFO/PresentMon and ADLX measure the FPS of) and its icon.</summary>
 public interface IForegroundApp
@@ -46,11 +49,11 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
         if (path is null)
         {
             var title = WindowTitle(window);
-            return title is null ? null : new ForegroundAppInfo($"pid:{pid}", title, null);
+            return title is null ? null : new ForegroundAppInfo($"pid:{pid}", title, null, (int)pid);
         }
         if (ShellExes.Contains(System.IO.Path.GetFileName(path)))
             return null;
-        return _apps.GetOrAdd(path, p => Create(p, window));
+        return _apps.GetOrAdd(path, p => Create(p, window)) with { Pid = (int)pid };
     }
 
     public byte[]? Icon(string id) => _icons.GetValueOrDefault(id);
@@ -75,7 +78,7 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
             iconId = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(path.ToUpperInvariant())))[..16];
             _icons[iconId] = png;
         }
-        logger.LogInformation("Foreground app: {Name} ({Path})", name, path);
+        logger.LogDebug("Foreground app: {Name} ({Path})", name, path);
         return new ForegroundAppInfo(path, name, iconId);
     }
 
@@ -148,7 +151,7 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
 /// <summary>A fixed game for the fake source (tests and UI work), so the result does not depend on the desktop.</summary>
 public sealed class FakeForegroundApp : IForegroundApp
 {
-    private static readonly ForegroundAppInfo Game = new(@"C:\Games\Fake Game\FakeGame.exe", "Fake Game", null);
+    private static readonly ForegroundAppInfo Game = new(@"C:\Games\Fake Game\FakeGame.exe", "Fake Game", null, 1);
 
     public ForegroundAppInfo? Read() => Game;
 

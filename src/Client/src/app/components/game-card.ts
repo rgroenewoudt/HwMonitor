@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, linkedSignal } from '@angular/core';
 import { GameInfo } from '../sensors/models';
 
-/** Card for the game in front: its icon, name and FPS. Only shown while there is an FPS value. */
+/** Card for the game in front: its icon, name, FPS, 1% low FPS and frame time. Only shown while there is an FPS value. */
 @Component({
   selector: 'app-game-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,18 +23,30 @@ import { GameInfo } from '../sensors/models';
       <ng-content />
     </header>
 
-    <div class="body">
-      <span class="value" data-testid="fps">{{ fps().toFixed(0) }}<small>FPS</small></span>
-    </div>
+    <dl class="stats">
+      <div>
+        <dt>FPS</dt>
+        <dd data-testid="fps">{{ fps().toFixed(0) }}</dd>
+      </div>
+      @if (fpsLow(); as low) {
+        <div>
+          <dt>1% low</dt>
+          <dd data-testid="fps-low">{{ low.toFixed(0) }}</dd>
+        </div>
+      }
+      <div>
+        <dt>Frame time</dt>
+        <dd data-testid="frame-time">{{ (1000 / fps()).toFixed(1) }}<small>ms</small></dd>
+      </div>
+    </dl>
   `,
   styles: `
     :host { display: flex; flex-direction: column; gap: 10px; }
     .title { display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .body {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: var(--surface-2);
-    }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 12px; margin: 0; }
+    .stats > div { padding: 10px 12px; border-radius: 14px; background: var(--surface-2); min-width: 0; }
+    dt { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    dd { margin: 2px 0 0; font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
     .icon { width: 22px; height: 22px; flex: none; object-fit: contain; }
     .fallback {
       fill: none;
@@ -43,17 +55,20 @@ import { GameInfo } from '../sensors/models';
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .value { font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
-    small { font-size: 0.8rem; color: var(--muted); margin-left: 4px; font-weight: 500; }
+    small { font-size: 0.8rem; color: var(--muted); margin-left: 2px; font-weight: 500; }
     @media (max-width: 600px), (max-height: 500px) {
       .icon { width: 18px; height: 18px; }
-      .value { font-size: 1.1rem; }
+      .stats { grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 6px; }
+      .stats > div { padding: 6px 8px; border-radius: 10px; }
+      dd { font-size: 1.1rem; }
     }
   `,
 })
 export class GameCard {
   readonly fps = input.required<number>();
   readonly game = input.required<GameInfo | null>();
+  /** Only when frames are counted with ETW. */
+  readonly fpsLow = input<number | null>(null);
 
   /** Set to null when the icon fails to load (e.g. the server restarted and lost it); then the fallback is shown. */
   /** Each snapshot is a new object, so the id (a string) is the source: an error stays until the game changes. */
