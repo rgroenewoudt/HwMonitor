@@ -22,6 +22,9 @@ builder.Services.AddSingleton<ISensorSource>(sp => sp.GetRequiredService<IOption
     { Source: SensorSourceKind.Lhm } => ActivatorUtilities.CreateInstance<LhmSensorSource>(sp),
     _ => (ISensorSource)ActivatorUtilities.CreateInstance<AutoSensorSource>(sp),
 });
+builder.Services.AddSingleton<IForegroundApp>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value.UseFake
+    ? new FakeForegroundApp()
+    : ActivatorUtilities.CreateInstance<ForegroundApp>(sp));
 builder.Services.AddSingleton<SensorPoller>();
 builder.Services.AddHostedService(sp => sp.GetRequiredService<SensorPoller>());
 builder.Services.AddSingleton<WindowsFirewall>();
@@ -56,6 +59,14 @@ app.UseStaticFiles(staticFiles);
 app.MapHub<SensorHub>("/hub/sensors");
 app.MapGet("/api/snapshot", (SensorPoller poller) =>
     poller.Latest is { } snapshot ? Results.Ok(snapshot) : Results.StatusCode(StatusCodes.Status503ServiceUnavailable));
+// The id is a hash from the snapshot, never a path, so other devices cannot read files. The icon of an exe does not change.
+app.MapGet("/api/game-icon/{id}", (HttpContext http, string id, IForegroundApp foreground) =>
+{
+    if (foreground.Icon(id) is not { } png)
+        return Results.NotFound();
+    http.Response.Headers.CacheControl = "public, max-age=86400";
+    return Results.File(png, "image/png");
+});
 // The firewall warning is only for a browser on this PC: when the port is blocked, other devices cannot get here.
 app.MapGet("/api/firewall", (HttpContext http, WindowsFirewall firewall) =>
     IsFromThisPc(http) ? firewall.Check() : FirewallStatus.Ok);

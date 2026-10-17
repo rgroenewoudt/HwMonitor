@@ -33,7 +33,7 @@ public sealed class FakeSensorSource(IOptions<SensorOptions> options, TimeProvid
                 new FanReading("/gpu-amd/0/fan/0", "GPU Fan", "GPU", Math.Round(Wave(0, 1900, 30, 1))),
             ],
             new MemoryReading(Wave(9.5, 21, 45, 2), 31.9),
-            Fps: null,
+            Fps: Wave(110, 165, 15, 0.5),
             new SourceStatus("fake", IsAdmin: false, Message: null));
     }
 

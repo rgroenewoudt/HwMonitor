@@ -9,6 +9,14 @@ export interface SensorSnapshot {
   memory: MemoryReading | null;
   fps: number | null;
   status: SourceStatus;
+  /** The app in front, which `fps` is for; null when there is no FPS or the app is unknown. */
+  game: GameInfo | null;
+}
+
+export interface GameInfo {
+  name: string;
+  /** PNG at `/api/game-icon/{iconId}`; null when the exe has no readable icon. */
+  iconId: string | null;
 }
 
 // `id` is stable and unique; use it as the track key.

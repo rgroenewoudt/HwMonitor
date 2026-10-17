@@ -51,7 +51,6 @@ h1 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
   &[data-status='reconnecting'], &[data-status='connecting'] { --dot: var(--warm); }
   &[data-status='offline'] { --dot: var(--hot); }
 
-  &.fps { font-variant-numeric: tabular-nums; }
 }
 
 .dot {

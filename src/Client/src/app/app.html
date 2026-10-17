@@ -18,9 +18,6 @@
 
   <div class="actions">
     <app-wake-lock-button />
-    @if (snapshot()?.fps; as fps) {
-      <span class="badge fps" data-testid="fps">{{ fps | number: '1.0-0' }} FPS</span>
-    }
     <span class="badge" [attr.data-status]="status()" data-testid="status-badge" role="status">
       <span class="dot"></span>{{ statusText() }}
     </span>
@@ -46,6 +43,13 @@
 
 <main class="grid">
   @if (snapshot(); as s) {
+    @if (s.fps; as fps) {
+      @if (!visibility.isHidden('game')) {
+        <app-game-card [fps]="fps" [game]="s.game" data-testid="game-card">
+          <app-hide-button key="game" label="Game" />
+        </app-game-card>
+      }
+    }
     @if (s.cpu; as cpu) {
       @if (!visibility.isHidden('cpu')) {
         <app-device-card kind="CPU" [device]="cpu" [memory]="s.memory" data-testid="cpu-card">

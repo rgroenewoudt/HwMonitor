@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { CardVisibilityService } from './cards/card-visibility.service';
 import { DeviceCard } from './components/device-card';
 import { FansCard } from './components/fans-card';
 import { FirewallWarning } from './components/firewall-warning';
+import { GameCard } from './components/game-card';
 import { HideButton } from './components/hide-button';
 import { TempsCard } from './components/temps-card';
 import { WakeLockButton } from './components/wake-lock-button';
@@ -18,7 +19,7 @@ const STATUS_TEXT = {
 
 @Component({
   selector: 'app-root',
-  imports: [DatePipe, DecimalPipe, DeviceCard, FansCard, FirewallWarning, HideButton, TempsCard, WakeLockButton],
+  imports: [DatePipe, DeviceCard, FansCard, FirewallWarning, GameCard, HideButton, TempsCard, WakeLockButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -42,6 +43,7 @@ export class App {
     const s = this.snapshot();
     if (!s) return [];
     const cards = [
+      ...(s.fps ? [{ key: 'game', label: 'Game' }] : []),
       ...(s.cpu ? [{ key: 'cpu', label: s.cpu.name }] : []),
       ...s.gpus.map((gpu) => ({ key: `gpu:${gpu.id}`, label: gpu.name })),
       { key: 'board', label: 'Motherboard temperatures' },

@@ -9,6 +9,7 @@ public sealed class SensorHub : Hub;
 /// <summary>Reads the sensors on a timer, keeps the latest snapshot and sends it to all browsers.</summary>
 public sealed class SensorPoller(
     ISensorSource source,
+    IForegroundApp foreground,
     IHubContext<SensorHub> hub,
     IOptions<SensorOptions> options,
     ILogger<SensorPoller> logger) : BackgroundService
@@ -22,13 +23,15 @@ public sealed class SensorPoller(
         using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(Math.Max(250, options.Value.PollIntervalMs)));
         var failing = false;
         var fps = new FpsFilter();
+        var game = new GameTracker(foreground);
         do
         {
             SensorSnapshot snapshot;
             try
             {
                 snapshot = source.Read();
-                snapshot = snapshot with { Fps = fps.Add(snapshot.Fps) };
+                var filtered = fps.Add(snapshot.Fps);
+                snapshot = snapshot with { Fps = filtered, Game = game.Update(filtered) };
                 if (failing)
                     logger.LogInformation("Reading sensors works again");
                 failing = false;

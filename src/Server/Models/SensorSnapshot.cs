@@ -9,7 +9,11 @@ public sealed record SensorSnapshot(
     IReadOnlyList<FanReading> Fans,
     MemoryReading? Memory,
     double? Fps,
-    SourceStatus Status);
+    SourceStatus Status,
+    GameInfo? Game = null);
+
+/// <summary>The app in front, which the FPS is for. The icon is a PNG at /api/game-icon/{IconId}.</summary>
+public sealed record GameInfo(string Name, string? IconId);
 
 // Id is stable and unique (the LHM identifier), so the UI can tell two identical devices apart.
 
