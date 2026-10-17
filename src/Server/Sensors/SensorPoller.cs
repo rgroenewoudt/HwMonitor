@@ -24,7 +24,7 @@ public sealed class SensorPoller(
         using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(Math.Max(250, options.Value.PollIntervalMs)));
         var failing = false;
         var fps = new FpsFilter();
-        var game = new GameTracker();
+        var game = new GameTracker(foreground.GraphicsApi);
         do
         {
             SensorSnapshot snapshot;

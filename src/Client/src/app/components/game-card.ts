@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, linkedSignal } from '@angular/core';
 import { GameInfo } from '../sensors/models';
 
-/** Card for the game in front: its icon, name, FPS, 1% low FPS and frame time. Only shown while there is an FPS value. */
+/** Card for the game in front: its icon, name, graphics API, FPS, 1% low FPS and frame time. Only shown while there is an FPS value. */
 @Component({
   selector: 'app-game-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +19,9 @@ import { GameInfo } from '../sensors/models';
           </svg>
         }
         <h2 class="name" [title]="game()?.name ?? ''" data-testid="game-name">{{ game()?.name ?? 'Unknown app' }}</h2>
+        @if (game()?.api; as api) {
+          <span class="api" data-testid="game-api">{{ api }}</span>
+        }
       </div>
       <ng-content />
     </header>
@@ -48,6 +51,15 @@ import { GameInfo } from '../sensors/models';
     dt { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
     dd { margin: 2px 0 0; font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
     .icon { width: 22px; height: 22px; flex: none; object-fit: contain; }
+    .api {
+      flex: none;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
     .fallback {
       fill: none;
       stroke: var(--accent);

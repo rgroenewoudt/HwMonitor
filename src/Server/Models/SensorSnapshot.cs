@@ -15,8 +15,11 @@ public sealed record SensorSnapshot(
 
 // FpsLow is the 1% low FPS (only when frames are counted with ETW).
 
-/// <summary>The app in front, which the FPS is for. The icon is a PNG at /api/game-icon/{IconId}.</summary>
-public sealed record GameInfo(string Name, string? IconId);
+/// <summary>
+/// The app in front, which the FPS is for. The icon is a PNG at /api/game-icon/{IconId}. Api is a guess from the
+/// loaded DLLs ("DX12", "Vulkan", ...); null when the process cannot be read.
+/// </summary>
+public sealed record GameInfo(string Name, string? IconId, string? Api);
 
 // Id is stable and unique (the LHM identifier), so the UI can tell two identical devices apart.
 

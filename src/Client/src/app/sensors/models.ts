@@ -19,6 +19,8 @@ export interface GameInfo {
   name: string;
   /** PNG at `/api/game-icon/{iconId}`; null when the exe has no readable icon. */
   iconId: string | null;
+  /** Graphics API guessed from the loaded DLLs ("DX12", "Vulkan", ...); null when unknown. */
+  api: string | null;
 }
 
 // `id` is stable and unique; use it as the track key.

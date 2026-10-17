@@ -21,6 +21,9 @@ public interface IForegroundApp
 
     /// <summary>The icon as PNG, by <see cref="ForegroundAppInfo.IconId"/>; null when unknown.</summary>
     byte[]? Icon(string id);
+
+    /// <summary>The graphics API of a process (e.g. "DX12", "Vulkan"); null when unknown.</summary>
+    string? GraphicsApi(int pid);
 }
 
 /// <summary>
@@ -39,6 +42,7 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
     // Only exes that were in front are added, so this stays small.
     private readonly ConcurrentDictionary<string, ForegroundAppInfo> _apps = new(StringComparer.OrdinalIgnoreCase);
     private readonly ConcurrentDictionary<string, byte[]> _icons = new();
+    private readonly GraphicsApi _graphicsApi = new(logger);
 
     public ForegroundAppInfo? Read()
     {
@@ -57,6 +61,8 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
     }
 
     public byte[]? Icon(string id) => _icons.GetValueOrDefault(id);
+
+    public string? GraphicsApi(int pid) => _graphicsApi.Read(pid);
 
     private ForegroundAppInfo Create(string path, nint window)
     {
@@ -156,4 +162,6 @@ public sealed class FakeForegroundApp : IForegroundApp
     public ForegroundAppInfo? Read() => Game;
 
     public byte[]? Icon(string id) => null;
+
+    public string? GraphicsApi(int pid) => "DX12";
 }
