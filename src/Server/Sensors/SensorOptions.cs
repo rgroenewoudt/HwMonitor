@@ -22,4 +22,10 @@ public sealed class SensorOptions
     /// Needs the SDK installed and admin; else it is skipped.
     /// </summary>
     public bool UseRyzenMaster { get; set; } = true;
+
+    /// <summary>
+    /// Own names for temperatures and fans: sensor Id (see <c>/api/snapshot</c>) → name.
+    /// Wins over the LHM names and <see cref="BoardNames"/>.
+    /// </summary>
+    public Dictionary<string, string> Names { get; set; } = [];
 }

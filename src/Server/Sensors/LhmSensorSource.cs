@@ -13,6 +13,7 @@ public sealed class LhmSensorSource : ISensorSource
     private readonly SensorOptions _options;
     private readonly SourceStatus _status;
     private readonly TimeProvider _time;
+    private readonly string? _boardName;
 
     public LhmSensorSource(IOptions<SensorOptions> options, TimeProvider time, ILogger<LhmSensorSource> logger)
     {
@@ -28,6 +29,7 @@ public sealed class LhmSensorSource : ISensorSource
             IsStorageEnabled = true,
         };
         _computer.Open();
+        _boardName = _computer.SMBios?.Board?.ProductName;
 
         var isAdmin = SensorRules.IsAdmin();
         var message = isAdmin ? null : "Not running as administrator. CPU, motherboard and fan values may be missing.";
@@ -87,15 +89,18 @@ public sealed class LhmSensorSource : ISensorSource
                 case HardwareType.Motherboard:
                     // All board chips (SuperIO, Embedded Controller) share one group.
                     // Add the chip name only to names that more than one chip has.
+                    // Boards LHM does not know get their names from BoardNames.
                     var chips = Flatten(hardware).ToList();
                     var repeatedTemps = RepeatedNames(chips, SensorType.Temperature);
                     var repeatedFans = RepeatedNames(chips, SensorType.Fan);
                     foreach (var sub in chips)
                     {
                         AddTemps(systemTemps, sub, "Motherboard",
-                            sensor => repeatedTemps.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name);
+                            sensor => BoardNames.Find(_boardName, sensor.Identifier.ToString())
+                                      ?? (repeatedTemps.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name));
                         AddFans(fans, sub, "Motherboard",
-                            sensor => repeatedFans.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name);
+                            sensor => BoardNames.Find(_boardName, sensor.Identifier.ToString())
+                                      ?? (repeatedFans.Contains(sensor.Name) ? $"{sub.Name} · {sensor.Name}" : sensor.Name));
                     }
                     break;
 
@@ -175,13 +180,13 @@ public sealed class LhmSensorSource : ISensorSource
         return new MemoryReading(Math.Round(used / gb, 1), Math.Round((used + free) / gb, 1));
     }
 
-    private static void AddTemps(List<TempReading> list, IHardware hardware, string group, Func<ISensor, string> name,
+    private void AddTemps(List<TempReading> list, IHardware hardware, string group, Func<ISensor, string> name,
         Func<ISensor, bool>? include = null)
     {
         foreach (var sensor in hardware.Sensors)
         {
             if (sensor.SensorType == SensorType.Temperature && IsValidTemp(sensor.Value) && (include?.Invoke(sensor) ?? true))
-                list.Add(new TempReading(sensor.Identifier.ToString(), name(sensor), group, Math.Round(sensor.Value!.Value, 1)));
+                list.Add(new TempReading(sensor.Identifier.ToString(), OwnName(sensor) ?? name(sensor), group, Math.Round(sensor.Value!.Value, 1)));
         }
     }
 
@@ -192,9 +197,12 @@ public sealed class LhmSensorSource : ISensorSource
             if (sensor.SensorType != SensorType.Fan || sensor.Value is not { } rpm)
                 continue;
             if (rpm > 0 || _options.ShowZeroRpmFans)
-                list.Add(new FanReading(sensor.Identifier.ToString(), name(sensor), source, Math.Round(rpm)));
+                list.Add(new FanReading(sensor.Identifier.ToString(), OwnName(sensor) ?? name(sensor), source, Math.Round(rpm)));
         }
     }
+
+    /// <summary>The name from the <c>Sensors:Names</c> setting, if there is one.</summary>
+    private string? OwnName(ISensor sensor) => _options.Names.GetValueOrDefault(sensor.Identifier.ToString());
 
     /// <summary>Value of the first sensor that matches one of the names, in order of the names.</summary>
     private static double? Value(IHardware hardware, SensorType type, params string[] names)
