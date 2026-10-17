@@ -13,7 +13,7 @@ namespace HwMonitor.Sensors;
 /// </summary>
 public sealed record ForegroundAppInfo(string Path, string Name, string? IconId, int Pid = 0);
 
-/// <summary>Finds the app in front (the one HWiNFO/PresentMon and ADLX measure the FPS of) and its icon.</summary>
+/// <summary>Finds the app in front (the one ETW and ADLX measure the FPS of) and its icon.</summary>
 public interface IForegroundApp
 {
     /// <summary>

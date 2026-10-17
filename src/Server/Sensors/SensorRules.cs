@@ -3,7 +3,7 @@ using HwMonitor.Models;
 
 namespace HwMonitor.Sensors;
 
-/// <summary>Rules that all real sensor sources (LHM, ADLX, HWiNFO) share.</summary>
+/// <summary>Rules that all real sensor sources (LHM, ADLX) share.</summary>
 public static class SensorRules
 {
     public const double MaxValidTempC = 125;

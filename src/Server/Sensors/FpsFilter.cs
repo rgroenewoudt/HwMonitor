@@ -1,7 +1,7 @@
 namespace HwMonitor.Sensors;
 
 /// <summary>
-/// Removes short FPS spikes. HWiNFO (PresentMon) and ADLX sometimes report >1000 FPS for one poll when switching to a
+/// Removes short FPS spikes. ADLX sometimes reports >1000 FPS for one poll when switching to a
 /// game (loading screen, first frames). Returns the median of the last 3 polls, with "no FPS" counted as 0, so one
 /// odd value is never shown and FPS appears one poll later than before.
 /// </summary>

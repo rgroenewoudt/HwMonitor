@@ -19,8 +19,7 @@ builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<ISensorSource>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value switch
 {
     { UseFake: true } => ActivatorUtilities.CreateInstance<FakeSensorSource>(sp),
-    { Source: SensorSourceKind.Lhm } => ActivatorUtilities.CreateInstance<LhmSensorSource>(sp),
-    _ => (ISensorSource)ActivatorUtilities.CreateInstance<AutoSensorSource>(sp),
+    _ => (ISensorSource)ActivatorUtilities.CreateInstance<LhmSensorSource>(sp),
 });
 builder.Services.AddSingleton<IForegroundApp>(sp => sp.GetRequiredService<IOptions<SensorOptions>>().Value.UseFake
     ? new FakeForegroundApp()
