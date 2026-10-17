@@ -20,7 +20,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  // All font sizes are in rem, so this scales all text (and still follows the browser font setting).
+  font-size: 80%;
+}
 
 body {
   margin: 0;
@@ -51,6 +55,8 @@ h1, h2, h3 { margin: 0; }
   backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
   transition: box-shadow 0.6s ease, border-color 0.6s ease;
+
+  @media (max-width: 600px), (max-height: 500px) { padding: 14px; }
 
   &[data-level]:not([data-level='none']) {
     border-color: color-mix(in srgb, var(--level-color) 28%, var(--border));

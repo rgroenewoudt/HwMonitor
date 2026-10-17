@@ -36,21 +36,21 @@ import { FanReading } from '../sensors/models';
     </ul>
   `,
   styles: `
-    :host { display: flex; flex-direction: column; gap: 14px; }
-    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    :host { display: flex; flex-direction: column; gap: 10px; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
     li {
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 12px;
-      min-height: 44px;
-      padding: 10px 12px;
+      min-height: 40px;
+      padding: 5px 12px;
       border-radius: 14px;
       background: var(--surface-2);
     }
     .icon {
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       fill: var(--accent);
       filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 50%, transparent));
       animation: spin 1s linear infinite;

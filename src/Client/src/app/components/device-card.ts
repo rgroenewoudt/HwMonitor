@@ -44,13 +44,8 @@ import { Gauge } from './gauge';
     </dl>
   `,
   styles: `
-    :host { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    app-gauge { --gauge-size: 150px; margin-block: 4px; }
-    /* Phones: smaller gauge, so more cards fit without scrolling. */
-    @media (max-width: 600px), (max-height: 500px) {
-      :host { gap: 8px; }
-      app-gauge { --gauge-size: 120px; margin-block: 0; }
-    }
+    :host { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    app-gauge { --gauge-size: 120px; }
     .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
@@ -76,6 +71,22 @@ import { Gauge } from './gauge';
       border-radius: inherit;
       background: var(--accent);
       transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* Phones: small gauge left of the stats, so more cards fit without scrolling. Last, so it wins. */
+    @media (max-width: 600px), (max-height: 500px) {
+      :host {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 'head head' 'gauge stats';
+        align-items: center;
+        gap: 8px 12px;
+      }
+      .card-head { grid-area: head; }
+      app-gauge { grid-area: gauge; --gauge-size: 84px; }
+      .stats { grid-area: stats; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 6px; }
+      .stats > div { padding: 6px 8px; border-radius: 10px; }
+      dd { font-size: 1.1rem; }
+      .bar { margin-top: 4px; }
     }
   `,
 })

@@ -39,7 +39,7 @@ interface Group {
     }
   `,
   styles: `
-    :host { display: flex; flex-direction: column; gap: 14px; }
+    :host { display: flex; flex-direction: column; gap: 10px; }
     section { display: flex; flex-direction: column; gap: 6px; }
     h3 {
       margin: 0;
@@ -49,13 +49,13 @@ interface Group {
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
     li {
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
-      gap: 6px 12px;
-      padding: 10px 12px;
+      gap: 4px 12px;
+      padding: 7px 12px;
       border-radius: 14px;
       background: var(--surface-2);
       color: var(--level-color);
