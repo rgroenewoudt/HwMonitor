@@ -31,8 +31,9 @@ public interface IForegroundApp
 
 /// <summary>
 /// Uses the foreground window. The exe path comes from QueryFullProcessImageName with limited rights, which also works for
-/// most protected (anti-cheat) processes, unlike Process.MainModule. Name: FileDescription, else ProductName, else the
-/// window title, else the exe name.
+/// most protected (anti-cheat) processes, unlike Process.MainModule. Name and icon come from Steam when the exe is in a
+/// Steam library (<see cref="SteamGame"/>); else the name is FileDescription, else ProductName, else the window title,
+/// else the exe name, and the icon is the exe's.
 /// </summary>
 public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundApp
 {
@@ -77,26 +78,58 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
 
     private ForegroundAppInfo Create(string path, nint window)
     {
-        string? name = null;
+        SteamGameInfo? steam = null;
         try
         {
-            var version = FileVersionInfo.GetVersionInfo(path);
-            name = Clean(version.FileDescription) ?? Clean(version.ProductName);
+            steam = SteamGame.Find(path);
         }
         catch (Exception ex)
         {
-            logger.LogDebug(ex, "No version info for {Path}", path);
+            logger.LogDebug(ex, "No Steam info for {Path}", path);
         }
-        name ??= WindowTitle(window) ?? System.IO.Path.GetFileNameWithoutExtension(path);
+
+        var name = steam?.Name ?? VersionName(path) ?? WindowTitle(window) ?? System.IO.Path.GetFileNameWithoutExtension(path);
 
         string? iconId = null;
-        if (ReadIcon(path) is { } png)
+        var png = (steam?.IconPath is { } steamIcon ? ReadImage(steamIcon) : null) ?? ReadIcon(path);
+        if (png is not null)
         {
             iconId = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(path.ToUpperInvariant())))[..16];
             _icons[iconId] = png;
         }
         logger.LogDebug("Foreground app: {Name} ({Path})", name, path);
         return new ForegroundAppInfo(path, name, iconId);
+    }
+
+    private string? VersionName(string path)
+    {
+        try
+        {
+            var version = FileVersionInfo.GetVersionInfo(path);
+            return Clean(version.FileDescription) ?? Clean(version.ProductName);
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "No version info for {Path}", path);
+            return null;
+        }
+    }
+
+    /// <summary>Steam's cached icon (JPG) as PNG, so the icon endpoint always serves PNG.</summary>
+    private byte[]? ReadImage(string path)
+    {
+        try
+        {
+            using var image = System.Drawing.Image.FromFile(path);
+            using var stream = new MemoryStream();
+            image.Save(stream, ImageFormat.Png);
+            return stream.ToArray();
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "No image {Path}", path);
+            return null;
+        }
     }
 
     private byte[]? ReadIcon(string path)
