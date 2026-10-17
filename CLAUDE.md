@@ -79,4 +79,4 @@ npm run icons                             # re-render PNG icons from public/icon
 
 - Without admin, CPU, motherboard and fan values may be missing; the snapshot `status.message` shows a warning in the UI. Reading HWiNFO needs no admin (but the published exe still asks for it, for the LHM fallback).
 - The free HWiNFO version turns shared memory off after 12 hours; then the app falls back to LHM.
-- The Wake Lock button is only shown in a secure context (https/localhost), so it is hidden over plain http on the LAN.
+- The Wake Lock button uses the Wake Lock API in a secure context (https/localhost). Over plain http on the LAN it is only shown on phones (`pointer: coarse`) and plays the silent looping `public/wake-lock.mp4` (1 px, in the viewport, opacity 0.01) instead; on desktops it is hidden.

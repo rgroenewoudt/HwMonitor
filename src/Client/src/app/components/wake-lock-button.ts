@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, DOCUMENT, inject, signal } from '@a
 
 /**
  * Keeps the phone screen on, for a phone used as a small monitor.
- * The Wake Lock API needs a secure context (https or localhost), so on plain http over the LAN the button is hidden.
+ * The Wake Lock API needs a secure context (https or localhost). On plain http over the LAN, phones play a tiny
+ * silent looping video instead (browsers do not let the screen sleep while a video plays); on desktops the button is hidden.
  */
 @Component({
   selector: 'app-wake-lock-button',
@@ -43,26 +44,53 @@ import { ChangeDetectionStrategy, Component, DOCUMENT, inject, signal } from '@a
 export class WakeLockButton {
   private readonly document = inject(DOCUMENT);
   private sentinel: WakeLockSentinel | null = null;
+  private video: HTMLVideoElement | null = null;
 
-  protected readonly supported = 'wakeLock' in navigator && window.isSecureContext;
+  private readonly native = 'wakeLock' in navigator && window.isSecureContext;
+  protected readonly supported = this.native || matchMedia('(pointer: coarse)').matches;
   protected readonly active = signal(false);
 
   constructor() {
-    // The browser drops the lock when the tab is hidden; take it again when we come back.
+    // The browser drops the lock (and pauses the video) when the tab is hidden; take it again when we come back.
     this.document.addEventListener('visibilitychange', () => {
-      if (this.active() && this.document.visibilityState === 'visible') void this.request();
+      if (this.active() && this.document.visibilityState === 'visible') void this.start();
     });
   }
 
   protected async toggle(): Promise<void> {
     if (this.active()) {
       this.active.set(false);
+      this.video?.pause();
       const sentinel = this.sentinel;
       this.sentinel = null;
       await sentinel?.release();
     } else {
       this.active.set(true);
-      await this.request();
+      await this.start();
+    }
+  }
+
+  private start(): Promise<void> {
+    return this.native ? this.request() : this.playVideo();
+  }
+
+  private async playVideo(): Promise<void> {
+    if (!this.video) {
+      const video = this.document.createElement('video');
+      video.src = 'wake-lock.mp4';
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute('aria-hidden', 'true');
+      // It must stay in the viewport and not be fully transparent, else the browser may let the screen sleep.
+      video.style.cssText = 'position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0.01;pointer-events:none';
+      this.document.body.appendChild(video);
+      this.video = video;
+    }
+    try {
+      await this.video.play();
+    } catch {
+      this.active.set(false);
     }
   }
 
