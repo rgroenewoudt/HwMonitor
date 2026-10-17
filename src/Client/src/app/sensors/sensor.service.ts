@@ -1,5 +1,6 @@
 import { DOCUMENT, Injectable, inject, signal } from '@angular/core';
 import { HttpTransportType, HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
+import { AppUpdateService } from './app-update';
 import { ConnectionStatus, SensorSnapshot } from './models';
 
 /** No message for this long means the socket is probably dead. The server sends every second. */
@@ -9,10 +10,12 @@ const STALE_AFTER_MS = 5000;
 @Injectable({ providedIn: 'root' })
 export class SensorService {
   private readonly document = inject(DOCUMENT);
+  private readonly appUpdate = inject(AppUpdateService);
   private readonly connection: HubConnection;
   private retryTimer?: ReturnType<typeof setTimeout>;
   /** Local time of the last hub message. Not the server timestamp: the phone clock may differ from the PC. */
   private lastMessageAt = 0;
+  private everConnected = false;
 
   readonly snapshot = signal<SensorSnapshot | null>(null);
   readonly status = signal<ConnectionStatus>('connecting');
@@ -30,7 +33,7 @@ export class SensorService {
       this.snapshot.set(snapshot);
     });
     this.connection.onreconnecting(() => this.status.set('reconnecting'));
-    this.connection.onreconnected(() => this.status.set('connected'));
+    this.connection.onreconnected(() => this.onConnected());
     this.connection.onclose(() => {
       this.status.set('offline');
       this.scheduleStart(3000);
@@ -74,11 +77,18 @@ export class SensorService {
     if (this.connection.state !== HubConnectionState.Disconnected) return;
     try {
       await this.connection.start();
-      this.status.set('connected');
+      this.onConnected();
     } catch {
       this.status.set('offline');
       this.scheduleStart(3000);
     }
+  }
+
+  /** After a reconnect the server may be a newer HwMonitor (updated and restarted); then load the new page. */
+  private onConnected(): void {
+    this.status.set('connected');
+    if (this.everConnected) void this.appUpdate.reloadIfOutdated();
+    this.everConnected = true;
   }
 
   private scheduleStart(delayMs: number): void {
