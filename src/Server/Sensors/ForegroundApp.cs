@@ -16,7 +16,10 @@ public sealed record ForegroundAppInfo(string Path, string Name, string? IconId,
 /// <summary>Finds the app in front (the one HWiNFO/PresentMon and ADLX measure the FPS of) and its icon.</summary>
 public interface IForegroundApp
 {
-    /// <summary>Null when there is no window in front or it is the Windows shell (desktop, taskbar).</summary>
+    /// <summary>
+    /// Null when there is no window in front or it is blocked: an exe in the Windows folder (desktop, taskbar, Start)
+    /// or a known app that draws with Direct3D but is not a game (Windows Terminal, browsers).
+    /// </summary>
     ForegroundAppInfo? Read();
 
     /// <summary>The icon as PNG, by <see cref="ForegroundAppInfo.IconId"/>; null when unknown.</summary>
@@ -34,9 +37,13 @@ public interface IForegroundApp
 public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundApp
 {
     private const int IconSize = 64;
-    private static readonly HashSet<string> ShellExes = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly string WindowsFolder =
+        Environment.GetFolderPath(Environment.SpecialFolder.Windows).TrimEnd('\\') + "\\";
+    // These can draw more than 10 frames/s (scrolling text, video), so ETW sees FPS.
+    private static readonly HashSet<string> BlockedExes = new(StringComparer.OrdinalIgnoreCase)
     {
-        "explorer.exe", "ShellExperienceHost.exe", "StartMenuExperienceHost.exe", "SearchHost.exe", "LockApp.exe",
+        "WindowsTerminal.exe", "Code.exe", "devenv.exe", "chrome.exe", "msedge.exe", "firefox.exe", "Discord.exe",
+        "obs64.exe", "vlc.exe",
     };
 
     // Only exes that were in front are added, so this stays small.
@@ -55,7 +62,7 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
             var title = WindowTitle(window);
             return title is null ? null : new ForegroundAppInfo($"pid:{pid}", title, null, (int)pid);
         }
-        if (ShellExes.Contains(System.IO.Path.GetFileName(path)))
+        if (IsBlocked(path))
             return null;
         return _apps.GetOrAdd(path, p => Create(p, window)) with { Pid = (int)pid };
     }
@@ -63,6 +70,10 @@ public sealed class ForegroundApp(ILogger<ForegroundApp> logger) : IForegroundAp
     public byte[]? Icon(string id) => _icons.GetValueOrDefault(id);
 
     public string? GraphicsApi(int pid) => _graphicsApi.Read(pid);
+
+    private static bool IsBlocked(string path) =>
+        path.StartsWith(WindowsFolder, StringComparison.OrdinalIgnoreCase) ||
+        BlockedExes.Contains(System.IO.Path.GetFileName(path));
 
     private ForegroundAppInfo Create(string path, nint window)
     {
