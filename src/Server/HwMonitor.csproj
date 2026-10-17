@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Only the published exe asks for admin; dotnet run and the tests stay normal.
          -p:RequireAdmin=false publishes an exe without it (to test the single exe without admin). -->
+    <!-- Made from Client/public/icons/icon.svg by `npm run icons`. -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
     <ApplicationManifest Condition="'$(_IsPublishing)' == 'true' And '$(RequireAdmin)' != 'false'">app.manifest</ApplicationManifest>
     <GenerateEmbeddedFilesManifest Condition="'$(Configuration)' == 'Release' Or Exists('wwwroot/index.html')">true</GenerateEmbeddedFilesManifest>
     <ClientDir>$(MSBuildProjectDirectory)\..\Client\</ClientDir>

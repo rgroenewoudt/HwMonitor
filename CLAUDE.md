@@ -25,7 +25,7 @@ npm run e2e -- e2e/layout.spec.ts --project=pixel7               # one file, one
 npm run e2e -- -g "reconnects"                                  # one test by name
 npm run e2e -- --update-snapshots         # after a planned UI change
 npx playwright test                       # without the build step (uses the last Release build)
-npm run icons                             # re-render PNG icons from public/icons/icon.svg
+npm run icons                             # re-render PNG icons and Server/app.ico (exe icon) from public/icons/icon.svg
 ```
 
 ## Architecture
