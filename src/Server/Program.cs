@@ -1,4 +1,6 @@
+using System.Net;
 using System.Text.RegularExpressions;
+using HwMonitor.Firewall;
 using HwMonitor.Sensors;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
@@ -22,6 +24,7 @@ builder.Services.AddSingleton<ISensorSource>(sp => sp.GetRequiredService<IOption
 });
 builder.Services.AddSingleton<SensorPoller>();
 builder.Services.AddHostedService(sp => sp.GetRequiredService<SensorPoller>());
+builder.Services.AddSingleton<WindowsFirewall>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
@@ -53,6 +56,28 @@ app.UseStaticFiles(staticFiles);
 app.MapHub<SensorHub>("/hub/sensors");
 app.MapGet("/api/snapshot", (SensorPoller poller) =>
     poller.Latest is { } snapshot ? Results.Ok(snapshot) : Results.StatusCode(StatusCodes.Status503ServiceUnavailable));
+// The firewall warning is only for a browser on this PC: when the port is blocked, other devices cannot get here.
+app.MapGet("/api/firewall", (HttpContext http, WindowsFirewall firewall) =>
+    IsFromThisPc(http) ? firewall.Check() : FirewallStatus.Ok);
+app.MapPost("/api/firewall/open", (HttpContext http, WindowsFirewall firewall, ILogger<WindowsFirewall> logger) =>
+{
+    if (!IsFromThisPc(http) || !IsSameSiteByIp(http.Request))
+        return Results.Problem($"Open this page as http://localhost:{http.Connection.LocalPort} to change the firewall.",
+            statusCode: StatusCodes.Status403Forbidden);
+    try
+    {
+        return Results.Ok(firewall.Open());
+    }
+    catch (UnauthorizedAccessException)
+    {
+        return Results.Problem("Run HwMonitor as administrator to change the firewall.", statusCode: StatusCodes.Status403Forbidden);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Could not open the firewall port");
+        return Results.Problem($"Could not change the firewall: {ex.Message}");
+    }
+});
 // Same options, so "/" and deep links also get "no-cache" for index.html.
 app.MapFallbackToFile("index.html", staticFiles);
 
@@ -60,6 +85,22 @@ app.Run();
 
 internal partial class Program
 {
+    private static bool IsFromThisPc(HttpContext http) =>
+        http.Connection.RemoteIpAddress is { } remote
+        && (IPAddress.IsLoopback(remote) || remote.Equals(http.Connection.LocalIpAddress));
+
+    /// <summary>
+    /// Changing the firewall needs a request from our own page: Origin must match Host (no other web site),
+    /// and Host must be localhost or an IP (no DNS rebinding, where evil.example points to 127.0.0.1).
+    /// </summary>
+    private static bool IsSameSiteByIp(HttpRequest request)
+    {
+        var host = request.Host.Host;
+        if (host != "localhost" && !IPAddress.TryParse(host, out _))
+            return false;
+        return request.Headers.Origin.ToString() == $"{request.Scheme}://{request.Host}";
+    }
+
     /// <summary>Angular output hashing: name-ABCD1234.ext.</summary>
     [GeneratedRegex(@"-[A-Z0-9]{8}\.[a-z0-9]+$")]
     private static partial Regex HashedFileName();

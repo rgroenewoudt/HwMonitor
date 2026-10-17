@@ -32,7 +32,8 @@ Start `HwMonitor.exe` and open <http://localhost:5080>.
 
 ### Open from your phone
 
-1. Allow the port in Windows Firewall (once, in an admin PowerShell):
+1. Allow the port in Windows Firewall (once). When the port is blocked, <http://localhost:5080> on the PC shows a warning
+   with an **Open port** button. Or do it by hand in an admin PowerShell:
    ```powershell
    New-NetFirewallRule -DisplayName "HwMonitor" -Direction Inbound -Protocol TCP -LocalPort 5080 -Profile Private -Action Allow
    ```

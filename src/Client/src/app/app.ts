@@ -3,6 +3,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { CardVisibilityService } from './cards/card-visibility.service';
 import { DeviceCard } from './components/device-card';
 import { FansCard } from './components/fans-card';
+import { FirewallWarning } from './components/firewall-warning';
 import { HideButton } from './components/hide-button';
 import { TempsCard } from './components/temps-card';
 import { WakeLockButton } from './components/wake-lock-button';
@@ -17,7 +18,7 @@ const STATUS_TEXT = {
 
 @Component({
   selector: 'app-root',
-  imports: [DatePipe, DecimalPipe, DeviceCard, FansCard, HideButton, TempsCard, WakeLockButton],
+  imports: [DatePipe, DecimalPipe, DeviceCard, FansCard, FirewallWarning, HideButton, TempsCard, WakeLockButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
