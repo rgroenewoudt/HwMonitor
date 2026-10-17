@@ -19,8 +19,8 @@ public sealed class FakeSensorSource(IOptions<SensorOptions> options, TimeProvid
 
         return new SensorSnapshot(
             time.GetUtcNow(),
-            new DeviceReading("/amdcpu/0", "AMD Ryzen 9 5950X", Wave(42, 88, 20), null, Wave(5, 100, 20), Wave(35, 142, 20), null),
-            [new DeviceReading("/gpu-amd/0", "AMD Radeon RX 9070", Wave(38, 74, 30, 1), Wave(45, 92, 30, 1), Wave(0, 99, 30, 1), Wave(12, 220, 30, 1), new MemoryReading(Wave(1.2, 13.8, 30, 1), 16))],
+            new DeviceReading("/amdcpu/0", "AMD Ryzen 9 5950X", Wave(42, 88, 20), Wave(5, 100, 20), Wave(35, 142, 20), null),
+            [new DeviceReading("/gpu-amd/0", "AMD Radeon RX 9070", Wave(38, 74, 30, 1), Wave(0, 99, 30, 1), Wave(12, 220, 30, 1), new MemoryReading(Wave(1.2, 13.8, 30, 1), 16))],
             [
                 new TempReading("/lpc/0/temperature/0", "System", "Motherboard", Wave(30, 38, 60)),
                 new TempReading("/lpc/0/temperature/1", "VRM MOS", "Motherboard", Wave(40, 68, 25, 2)),

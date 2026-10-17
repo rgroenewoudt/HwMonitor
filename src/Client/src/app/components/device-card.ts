@@ -3,7 +3,7 @@ import { DeviceReading, MemoryReading } from '../sensors/models';
 import { tempLevel } from '../sensors/temperature';
 import { Gauge } from './gauge';
 
-/** Card for a CPU or GPU: big temperature gauge plus load, power, hot spot and memory (system RAM for the CPU, VRAM for the GPU). */
+/** Card for a CPU or GPU: big temperature gauge plus load, power and memory (system RAM for the CPU, VRAM for the GPU). */
 @Component({
   selector: 'app-device-card',
   imports: [Gauge],
@@ -28,12 +28,6 @@ import { Gauge } from './gauge';
         <dt>Power</dt>
         <dd>{{ format(device().powerW, 0) }}<small>W</small></dd>
       </div>
-      @if (device().hotSpotC != null) {
-        <div>
-          <dt>Hot spot</dt>
-          <dd>{{ format(device().hotSpotC, 0) }}<small>°C</small></dd>
-        </div>
-      }
       @if (memory(); as mem) {
         <div class="memory" data-testid="memory">
           <dt>{{ kind() === 'CPU' ? 'RAM' : 'VRAM' }}</dt>

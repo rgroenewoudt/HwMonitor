@@ -28,7 +28,6 @@ public sealed record DeviceReading(
     string Id,
     string Name,
     double? TempC,
-    double? HotSpotC,
     double? LoadPercent,
     double? PowerW,
     MemoryReading? Memory);

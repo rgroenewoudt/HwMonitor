@@ -29,7 +29,6 @@ export interface DeviceReading {
   id: string;
   name: string;
   tempC: number | null;
-  hotSpotC: number | null;
   loadPercent: number | null;
   powerW: number | null;
   /** GPU memory (VRAM); null for the CPU. */

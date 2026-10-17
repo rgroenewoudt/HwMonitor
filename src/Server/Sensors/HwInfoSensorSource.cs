@@ -131,7 +131,6 @@ public sealed partial class HwInfoSensorSource : IDisposable
             id,
             name,
             temp,
-            HotSpotC: null,
             Value(readings, HwInfoReadingType.Usage, "Total CPU Usage"),
             Power(readings, "CPU Package Power", "CPU PPT"),
             Memory: null);
@@ -141,7 +140,6 @@ public sealed partial class HwInfoSensorSource : IDisposable
         id,
         name,
         Temp(readings, "GPU Temperature"),
-        Temp(readings, "GPU Hot Spot Temperature", "GPU Hotspot Temperature", "GPU Hot Spot"),
         Value(readings, HwInfoReadingType.Usage, "GPU Core Load", "GPU Utilization", "GPU D3D Usage"),
         Power(readings, "GPU Power", "Total Board Power (TBP)", "Total Graphics Power (TGP)", "GPU ASIC Power"),
         Memory(readings, "GPU Memory Allocated", "GPU Memory Available") ?? DedicatedMemory(name, readings));

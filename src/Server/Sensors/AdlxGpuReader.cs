@@ -93,7 +93,6 @@ public sealed class AdlxGpuReader : IDisposable
                 var support = ADLX.metricsSupportP_Ptr_value(supportPtr);
                 gpus.Add(new Gpu(native, $"/adlx/gpu/{uniqueId}", name, totalVramMb,
                     Temp: IsSupported(support.IsSupportedGPUTemperature),
-                    HotSpot: IsSupported(support.IsSupportedGPUHotspotTemperature),
                     Usage: IsSupported(support.IsSupportedGPUUsage),
                     BoardPower: IsSupported(support.IsSupportedGPUTotalBoardPower),
                     Power: IsSupported(support.IsSupportedGPUPower),
@@ -132,7 +131,6 @@ public sealed class AdlxGpuReader : IDisposable
             try
             {
                 var temp = gpu.Temp ? ValidTemp(Get(metrics.GPUTemperature)) : null;
-                var hotSpot = gpu.HotSpot ? ValidTemp(Get(metrics.GPUHotspotTemperature)) : null;
                 var load = gpu.Usage ? Get(metrics.GPUUsage) : null;
                 var power = (gpu.BoardPower ? ValidPower(Get(metrics.GPUTotalBoardPower)) : null)
                             ?? (gpu.Power ? ValidPower(Get(metrics.GPUPower)) : null);
@@ -144,7 +142,7 @@ public sealed class AdlxGpuReader : IDisposable
                     fans.Add(new FanReading($"{gpu.Id}/fan", "GPU Fan", "GPU", rpm));
 
                 if (temp is not null || load is not null)
-                    readings.Add(new DeviceReading(gpu.Id, gpu.Name, temp, hotSpot, load is { } l ? Math.Round(l, 1) : null, power, memory));
+                    readings.Add(new DeviceReading(gpu.Id, gpu.Name, temp, load is { } l ? Math.Round(l, 1) : null, power, memory));
             }
             finally
             {
@@ -203,5 +201,5 @@ public sealed class AdlxGpuReader : IDisposable
 
     private sealed record Gpu(
         IADLXGPU Native, string Id, string Name, uint TotalVramMb,
-        bool Temp, bool HotSpot, bool Usage, bool BoardPower, bool Power, bool Fan, bool Vram);
+        bool Temp, bool Usage, bool BoardPower, bool Power, bool Fan, bool Vram);
 }

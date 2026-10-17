@@ -135,7 +135,6 @@ public sealed class LhmSensorSource : ISensorSource
             cpu.Identifier.ToString(),
             cpu.Name,
             temp,
-            HotSpotC: null,
             Value(cpu, SensorType.Load, "CPU Total"),
             Value(cpu, SensorType.Power, "Package", "CPU Package"),
             Memory: null);
@@ -154,7 +153,6 @@ public sealed class LhmSensorSource : ISensorSource
         gpu.Identifier.ToString(),
         gpu.Name,
         Value(gpu, SensorType.Temperature, "GPU Core"),
-        Value(gpu, SensorType.Temperature, "GPU Hot Spot", "GPU Hotspot"),
         Value(gpu, SensorType.Load, "GPU Core", "D3D 3D"),
         Value(gpu, SensorType.Power, "GPU Package", "GPU Power", "GPU Core"),
         Memory(gpu, "GPU Memory Used", "GPU Memory Free", gb: 1024)
