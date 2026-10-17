@@ -45,6 +45,8 @@ export interface TempReading {
   name: string;
   group: string;
   tempC: number;
+  /** Drive active time in % (like Task Manager); only on the first temperature of each drive. */
+  activePercent: number | null;
 }
 
 export interface FanReading {

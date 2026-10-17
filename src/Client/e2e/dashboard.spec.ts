@@ -11,6 +11,8 @@ test('shows all cards and live values', async ({ page }) => {
   await expect(page.getByTestId('board-card').getByTestId('system-temp')).toHaveCount(3);
   await expect(page.getByTestId('drives-card')).toContainText('Drives');
   await expect(page.getByTestId('drives-card').getByTestId('system-temp')).toHaveCount(1);
+  await expect(page.getByTestId('drives-card').getByTestId('drive-active')).toHaveText(/^\d+% active$/);
+  await expect(page.getByTestId('board-card').getByTestId('drive-active')).toHaveCount(0);
   await expect(page.getByTestId('fan-tile')).toHaveCount(3);
   // The fake source reports a fixed game without an icon, so the fallback icon is shown.
   await expect(page.getByTestId('game-name')).toHaveText('Fake Game');

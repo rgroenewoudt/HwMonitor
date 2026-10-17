@@ -56,6 +56,7 @@ public sealed class LhmSensorSource : ISensorSource
         var gpus = new List<DeviceReading>();
         var systemTemps = new List<TempReading>();
         var fans = new List<FanReading>();
+        var driveActivity = new List<(string, double)>();
         MemoryReading? memory = null;
 
         foreach (var hardware in _computer.Hardware)
@@ -105,6 +106,9 @@ public sealed class LhmSensorSource : ISensorSource
                     var driveName = DriveNames.Pretty(hardware.Name);
                     AddTemps(systemTemps, hardware, "Drives",
                         sensor => tempCount == 1 ? driveName : $"{driveName} · {sensor.Name}", IsDriveTemp);
+                    // "Used Space" is also a Load sensor.
+                    if (Value(hardware, SensorType.Load, "Total Activity") is { } active)
+                        driveActivity.Add((hardware.Identifier.ToString(), active));
                     break;
 
                 case HardwareType.Cooler:
@@ -116,6 +120,8 @@ public sealed class LhmSensorSource : ISensorSource
                     break;
             }
         }
+
+        SensorRules.AddDriveActivity(systemTemps, driveActivity);
 
         if (_adlx is not null)
             gpus.AddRange(_adlx.ReadGpus(fans));

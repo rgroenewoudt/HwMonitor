@@ -35,8 +35,11 @@ public sealed record DeviceReading(
 /// <summary>Used and total memory in GB (system RAM or GPU memory).</summary>
 public sealed record MemoryReading(double UsedGb, double TotalGb);
 
-/// <summary>A temperature that is not the CPU or GPU, e.g. motherboard, VRM or a drive.</summary>
-public sealed record TempReading(string Id, string Name, string Group, double TempC);
+/// <summary>
+/// A temperature that is not the CPU or GPU, e.g. motherboard, VRM or a drive. ActivePercent is the drive's active time
+/// (like Task Manager), only on the first temperature of each drive.
+/// </summary>
+public sealed record TempReading(string Id, string Name, string Group, double TempC, double? ActivePercent = null);
 
 public sealed record FanReading(string Id, string Name, string Source, double Rpm);
 

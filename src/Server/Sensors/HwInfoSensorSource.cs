@@ -76,6 +76,14 @@ public sealed partial class HwInfoSensorSource : IDisposable
                 AddFans(fans, group, "GPU", r => r.Label);
         }
 
+        // The temperatures are in the "S.M.A.R.T.:" group, the active time in the "Drive:" group of the same drive.
+        var activity = sensors
+            .Select(s => (Match: DriveGroup().Match(s.NameOrig), Reading: s.Readings.FirstOrDefault(r => r.LabelOrig == "Total Activity" && r.Unit == "%")))
+            .Where(x => x.Match.Success && x.Reading is not null)
+            .Select(x => (Model: x.Match.Groups["model"].Value.Trim(), Serial: x.Match.Groups["serial"].Value, Active: x.Reading!.Value))
+            .ToList();
+        var driveActivity = new List<(string, double)>();
+
         var deviceSensors = devices.SelectMany(d => d.Select(x => x.Sensor)).ToHashSet();
         foreach (var sensor in sensors.Where(s => !deviceSensors.Contains(s)))
         {
@@ -90,8 +98,16 @@ public sealed partial class HwInfoSensorSource : IDisposable
                 // NVMe drives also report their "Warning" and "Critical" limits as temperatures.
                 static bool IsDriveTemp(HwInfoReading r) => !r.LabelOrig.Contains("Warning") && !r.LabelOrig.Contains("Critical");
                 var tempCount = sensor.Readings.Count(r => r.Type == HwInfoReadingType.Temp && IsDriveTemp(r));
-                var driveName = DriveNames.Pretty(drive.Groups["model"].Value.Trim());
+                var model = drive.Groups["model"].Value.Trim();
+                var driveName = DriveNames.Pretty(model);
                 AddTemps(systemTemps, sensor, "Drives", r => tempCount == 1 ? driveName : $"{driveName} · {r.Label}", IsDriveTemp);
+                // The only drive with that model, else the one with the same serial.
+                var serial = drive.Groups["serial"].Value;
+                var same = activity.Where(a => a.Model == model).ToList();
+                if (same.Count > 1)
+                    same = same.Where(a => a.Serial == serial).ToList();
+                if (same.Count == 1)
+                    driveActivity.Add((Id(sensor), same[0].Active));
                 continue;
             }
 
@@ -112,6 +128,7 @@ public sealed partial class HwInfoSensorSource : IDisposable
         }
 
         systemTemps.RemoveAll(t => _options.HiddenTemps.Contains(t.Name, StringComparer.OrdinalIgnoreCase));
+        SensorRules.AddDriveActivity(systemTemps, driveActivity);
 
         var fps = sensors.SelectMany(s => s.Readings).Where(r => r.LabelOrig.StartsWith("Framerate", StringComparison.Ordinal)).ToList();
         return new SensorSnapshot(_time.GetUtcNow(), cpu, gpus, systemTemps, fans, memory, Fps(fps), _status);
@@ -281,8 +298,8 @@ public sealed partial class HwInfoSensorSource : IDisposable
     [GeneratedRegex(@"^(?<kind>CPU|[di]?GPU) \[#(?<index>\d+)\]:\s*(?<name>[^:]+)")]
     private static partial Regex DeviceGroup();
 
-    /// <summary>"S.M.A.R.T.: WDS100T1X0E-00AFY0 (204540801238) [C:]" → model without the serial and the drive letters.</summary>
-    [GeneratedRegex(@"^(S\.M\.A\.R\.T\.|Drive):\s*(?<model>.+?)(\s*\([^)]*\))?(\s*\[[^\]]*\])?$")]
+    /// <summary>"S.M.A.R.T.: WDS100T1X0E-00AFY0 (204540801238) [C:]" → model and serial, without the drive letters.</summary>
+    [GeneratedRegex(@"^(S\.M\.A\.R\.T\.|Drive):\s*(?<model>.+?)(\s*\((?<serial>[^)]*)\))?(\s*\[[^\]]*\])?$")]
     private static partial Regex DriveGroup();
 
     [GeneratedRegex(@"\((?<chip>[^()]+)\)$")]

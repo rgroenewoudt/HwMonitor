@@ -28,6 +28,9 @@ interface Group {
           @for (item of group.items; track item.id) {
             <li [attr.data-level]="item.level" data-testid="system-temp">
               <span class="label" [title]="item.name">{{ item.name }}</span>
+              @if (item.activePercent !== null) {
+                <span class="active" title="Active time" data-testid="drive-active">{{ item.activePercent.toFixed(0) }}% active</span>
+              }
               <span class="value">{{ item.tempC.toFixed(0) }}<small>°C</small></span>
               <span class="bar"><span [style.width.%]="item.percent"></span></span>
             </li>
@@ -52,7 +55,7 @@ interface Group {
     ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
     li {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr auto auto;
       align-items: center;
       gap: 4px 12px;
       padding: 7px 12px;
@@ -61,7 +64,8 @@ interface Group {
       color: var(--level-color);
     }
     .label { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-    .value { color: var(--text); font-size: 1.15rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .active { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .value { grid-column: 3; color: var(--text); font-size: 1.15rem; font-weight: 650; font-variant-numeric: tabular-nums; }
     small { font-size: 0.75rem; color: var(--muted); margin-left: 2px; font-weight: 500; }
     .bar { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--track); overflow: hidden; }
     .bar span {

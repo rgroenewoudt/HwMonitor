@@ -25,7 +25,7 @@ public sealed class FakeSensorSource(IOptions<SensorOptions> options, TimeProvid
                 new TempReading("/lpc/0/temperature/0", "System", "Motherboard", Wave(30, 38, 60)),
                 new TempReading("/lpc/0/temperature/1", "VRM MOS", "Motherboard", Wave(40, 68, 25, 2)),
                 new TempReading("/lpc/0/temperature/2", "Chipset", "Motherboard", Wave(48, 56, 45, 3)),
-                new TempReading("/nvme/0/temperature/0", "Samsung SSD 990 PRO 2TB", "Drives", Wave(36, 52, 50, 4)),
+                new TempReading("/nvme/0/temperature/0", "Samsung SSD 990 PRO 2TB", "Drives", Wave(36, 52, 50, 4), Wave(0, 60, 15, 4)),
             ],
             [
                 new FanReading("/lpc/0/fan/0", "CPU Fan", "Motherboard", Math.Round(Wave(650, 1650, 20))),
