@@ -21,12 +21,14 @@ public sealed class SensorPoller(
     {
         using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(Math.Max(250, options.Value.PollIntervalMs)));
         var failing = false;
+        var fps = new FpsFilter();
         do
         {
             SensorSnapshot snapshot;
             try
             {
                 snapshot = source.Read();
+                snapshot = snapshot with { Fps = fps.Add(snapshot.Fps) };
                 if (failing)
                     logger.LogInformation("Reading sensors works again");
                 failing = false;

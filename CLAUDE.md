@@ -33,6 +33,7 @@ npm run icons                             # re-render PNG icons from public/icon
 **Data flow:** `ISensorSource.Read()` → `SensorPoller` (BackgroundService, `PeriodicTimer`) keeps the latest `SensorSnapshot` and broadcasts it as `"snapshot"` on the SignalR hub `/hub/sensors`. `/api/snapshot` returns the latest one (503 before the first poll). The client `SensorService` loads `/api/snapshot` once, then listens on the hub and exposes `snapshot` and `status` signals.
 
 - Every device, temp and fan has an `Id` (the LHM identifier, e.g. `/lpc/nct6799d/0/fan/1`). Use it as `track` key; names are not unique (two identical GPUs, sensors from several board chips).
+- The poller passes `Fps` through `FpsFilter` (median of the last 3 polls, null = 0): HWiNFO/ADLX give single >1000 FPS spikes when switching to a game.
 - When `Read()` throws, the poller keeps the last values but sets `status.message`, so the UI shows the error.
 - `Server/Models/SensorSnapshot.cs` is mirrored by hand in `Client/src/app/sensors/models.ts`. Change both together.
 - `Program.cs` chooses the source: `Sensors:UseFake` → `FakeSensorSource` (sine waves; `FreezeFake` = fixed values); else `Sensors:Source` = `Auto` (default) / `HwInfo` → `AutoSensorSource`, `Lhm` → `LhmSensorSource`. Only the poller thread calls `Read()`; LHM's `Computer` is not thread-safe.
