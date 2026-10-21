@@ -28,7 +28,8 @@ Result in `src/Server/bin/Release/net10.0-windows/win-x64/publish/`:
 | `HwMonitor.exe` | Self-contained single file, ReadyToRun, Angular app embedded. Asks for admin rights when started. |
 | `appsettings.json` | Optional. Port, poll interval, logging. |
 
-Start `HwMonitor.exe` and open <http://localhost:5080>.
+Start `HwMonitor.exe` and open <http://localhost:5080>. When another app already uses port 5080, the next free port
+of `Ports` is used (5081, 5082, ...); the console shows it (`Now listening on`).
 
 ### Open from your phone
 
@@ -50,7 +51,8 @@ network the button is hidden. "Add to Home screen" still works.
 
 | Key | Default | |
 | --- | --- | --- |
-| `Urls` | `http://0.0.0.0:5080` | Address and port |
+| `Ports` | `[5080, 5081, 5082, 5083]` | Ports to try, the first free one is used (all network addresses) |
+| `Urls` | | Fixed address and port, e.g. `http://0.0.0.0:6000`; when set, `Ports` is not used |
 | `Sensors:PollIntervalMs` | `1000` | How often values update (min 250) |
 | `Sensors:ShowZeroRpmFans` | `false` | Also show fans that stand still / are not connected |
 | `Sensors:UseAdlx` | `true` | Read AMD GPUs and FPS with ADLX (skipped when there is no AMD driver) |

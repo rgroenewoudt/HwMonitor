@@ -11,7 +11,7 @@ A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windo
 ```powershell
 # Server (src/Server)
 dotnet build                              # Debug: no web UI embedded
-dotnet run --launch-profile fake          # fake sensors, no admin needed, http://0.0.0.0:5080
+dotnet run --launch-profile fake          # fake sensors, no admin needed, http://0.0.0.0:5080 (or next free port)
 dotnet run --launch-profile http          # real sensors (needs admin)
 dotnet publish -c Release                 # single exe (+ appsettings.json), runs ng build first
 dotnet publish -c Release -p:RequireAdmin=false -o <dir>   # same exe without the admin prompt (for testing)
@@ -62,6 +62,7 @@ npm run icons                             # re-render PNG icons and Server/app.i
 - Only file names with an Angular hash (`main-XIAXEOH3.js`) are served as `immutable`; everything else is `no-cache`.
 - A Debug build without `wwwroot/index.html` has no embedded manifest; `Program.cs` then uses a `NullFileProvider` and logs a warning.
 - `app.manifest` (`requireAdministrator`) is only applied when publishing (`_IsPublishing`), so `dotnet run` and the tests work without admin. A published exe started from a non-admin shell fails with "Permission denied".
+- Port: when `Urls` is not set (settings, `--urls`, `ASPNETCORE_URLS`), `Program.cs` binds `0.0.0.0` on the first port of `Ports` that is free (exclusive bind test, so a loopback-only listener also counts as used). The launch profiles have no `applicationUrl` for this reason; `ng serve`'s proxy still expects 5080.
 - `ContentRootPath = AppContext.BaseDirectory`, so `appsettings.json` next to the exe is found from any working folder.
 - ADLX DLLs are prebuilt and committed in `lib/adlx/` (`build.ps1` rebuilds them: pinned ADLXWrapper + ADLX SDK, adds an `IADLXFPS*` pointer helper to the swig file, static VC++ runtime). `ADLXBindings.dll` is native: copied next to the exe in dev, bundled in the single-file exe on publish.
 - `lib/ryzenmaster/RyzenMasterShim.dll` is prebuilt and committed (`build.ps1` compiles `RyzenMasterShim.cpp` with `cl`, using the headers from the installed SDK). It loads the SDK's `Platform.dll` by full path at run time and wraps the C++ calls in SEH. The SDK's headers, libs, DLLs and driver are AMD confidential (SDK `License.rtf`): never copy them into the repo or bundle them.

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using HwMonitor.Firewall;
 using HwMonitor.Sensors;
@@ -13,6 +14,19 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     // Files come from the embedded provider below; this only stops a "wwwroot not found" warning.
     WebRootPath = AppContext.BaseDirectory,
 });
+
+// Without Urls (from settings, --urls or ASPNETCORE_URLS), take the first free port of Ports: 5080 may be used by another app.
+int? fallbackFrom = null;
+if (string.IsNullOrEmpty(builder.Configuration["Urls"]))
+{
+    var ports = builder.Configuration.GetSection("Ports").Get<int[]>() is { Length: > 0 } list ? list : [5080];
+    var port = ports.FirstOrDefault(IsPortFree);
+    if (port == 0)
+        throw new InvalidOperationException($"All ports are in use: {string.Join(", ", ports)}. Add a free port to Ports in appsettings.json.");
+    if (port != ports[0])
+        fallbackFrom = ports[0];
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 
 builder.Services.Configure<SensorOptions>(builder.Configuration.GetSection(SensorOptions.Section));
 builder.Services.AddSingleton(TimeProvider.System);
@@ -43,6 +57,8 @@ app.Environment.WebRootFileProvider = hasClient
     : new NullFileProvider();
 if (!hasClient)
     app.Logger.LogWarning("No web UI embedded in this build. Build with -c Release, or use `ng serve` in src/Client.");
+if (fallbackFrom is { } usedPort)
+    app.Logger.LogWarning("Port {Port} is in use by another app, using the next free port of Ports", usedPort);
 
 var staticFiles = new StaticFileOptions
 {
@@ -98,6 +114,21 @@ app.Run();
 
 internal partial class Program
 {
+    /// <summary>Exclusive bind, like Kestrel on Windows: also fails when another app only listens on one address of the port.</summary>
+    private static bool IsPortFree(int port)
+    {
+        try
+        {
+            using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { ExclusiveAddressUse = true };
+            socket.Bind(new IPEndPoint(IPAddress.Any, port));
+            return true;
+        }
+        catch (SocketException)
+        {
+            return false;
+        }
+    }
+
     private static bool IsFromThisPc(HttpContext http) =>
         http.Connection.RemoteIpAddress is { } remote
         && (IPAddress.IsLoopback(remote) || remote.Equals(http.Connection.LocalIpAddress));
