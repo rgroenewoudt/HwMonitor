@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 10, `net10.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). Values come from LibreHardwareMonitor (LHM). `SensorSnapshot.Fps` comes from ETW (frames of the foreground app, all GPUs); when ETW cannot run or sees no frames, from AMD ADLX (only AMD GPUs).
+A web dashboard for live CPU/GPU/system temperatures and fan speeds of the Windows PC it runs on. ASP.NET Core (.NET 11, `net11.0-windows`) server + Angular 22 client (standalone, signals, zoneless, PWA, custom SCSS, no UI library). Values come from LibreHardwareMonitor (LHM). `SensorSnapshot.Fps` comes from ETW (frames of the foreground app, all GPUs); when ETW cannot run or sees no frames, from AMD ADLX (only AMD GPUs).
 
 ## Commands
 

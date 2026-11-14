@@ -3,7 +3,7 @@
 A web dashboard for live CPU, GPU and system temperatures and fan speeds of this Windows PC.
 Open it on the PC, or on a phone or tablet on the same network.
 
-- **Server**: ASP.NET Core (.NET 10), [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor), AMD [ADLX](https://gpuopen.com/adlx/) (via [ADLXWrapper](https://github.com/Rem0o/ADLXWrapper)), SignalR
+- **Server**: ASP.NET Core (.NET 11), [LibreHardwareMonitorLib](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor), AMD [ADLX](https://gpuopen.com/adlx/) (via [ADLXWrapper](https://github.com/Rem0o/ADLXWrapper)), SignalR
 - **Client**: Angular 22 (standalone, signals, zoneless), PWA, custom CSS
 - **Tests**: Playwright (desktop, Pixel 7, Pixel 7 landscape)
 
@@ -12,7 +12,7 @@ Open it on the PC, or on a phone or tablet on the same network.
 - Windows 10/11, x64
 - **Administrator rights** for CPU, motherboard, drive and fan sensors. Without them you get fewer values, and the page shows a warning.
 - AMD GPUs and the game FPS are read with AMD ADLX, which comes with the AMD driver. Without it, AMD GPUs come from LibreHardwareMonitor and there is no FPS.
-- To build: .NET 10 SDK and Node.js 24
+- To build: .NET 11 SDK and Node.js 24
 
 ## Run (published exe)
 
