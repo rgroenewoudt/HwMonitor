@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
     "@angular/service-worker": "^22.2.0",
-    "@microsoft/signalr": "^10.0.11",
+    "@microsoft/signalr": "^11.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -29,8 +29,8 @@
     "@angular/cli": "^22.2.2",
     "@angular/compiler-cli": "^22.2.0",
     "@playwright/test": "^1.64.1",
-    "@types/node": "^24.19.2",
-    "jsdom": "^30.0.0",
+    "@types/node": "^26.6.6",
+    "jsdom": "^31.0.1",
     "prettier": "^3.8.1",
     "typescript": "~6.0.2",
     "vitest": "^5.0.0"

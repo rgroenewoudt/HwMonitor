@@ -31,9 +31,9 @@
 
   <ItemGroup>
     <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.6" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.13" />
-    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.2.8" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.15" />
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="4.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.15" />
   </ItemGroup>
 
   <!-- AMD ADLX: prebuilt from https://github.com/Rem0o/ADLXWrapper by lib/adlx/build.ps1.
@@ -70,16 +70,13 @@
     <ClientInput Include="$(ClientDir)src\**;$(ClientDir)public\**;$(ClientDir)*.json" />
   </ItemGroup>
 
-  <Target Name="BuildClient" BeforeTargets="BeforeBuild"
-          Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'"
-          Inputs="@(ClientInput)" Outputs="wwwroot\index.html">
+  <Target Name="BuildClient" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'" Inputs="@(ClientInput)" Outputs="wwwroot\index.html">
     <Exec Command="npm ci" WorkingDirectory="$(ClientDir)" Condition="!Exists('$(ClientDir)node_modules')" />
     <Exec Command="npx ng build --configuration production" WorkingDirectory="$(ClientDir)" />
   </Target>
 
   <!-- Separate target, so the files are also embedded when BuildClient was skipped as up to date. -->
-  <Target Name="EmbedClient" AfterTargets="BuildClient" BeforeTargets="BeforeBuild"
-          Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'">
+  <Target Name="EmbedClient" AfterTargets="BuildClient" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release' And '$(SkipClientBuild)' != 'true'">
     <ItemGroup>
       <EmbeddedResource Include="wwwroot\**" />
     </ItemGroup>
